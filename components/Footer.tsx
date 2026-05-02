@@ -215,7 +215,7 @@ export default function Footer() {
           <div>
             <div className="hf-footer-col-title">Navigate</div>
             <ul className="hf-footer-links">
-              {[['/', 'Home'], ['/about', 'About Us'], ['/services', 'Services'], ['/blogs', 'Blog'], ['/contact', 'Contact']].map(([href, label]) => (
+              {[['/', 'Home'], ['/about', 'About Us'], ['/services', 'Services'], ['/blogs', 'Blog'], ['/faq', 'FAQ'], ['/contact', 'Contact']].map(([href, label]) => (
                 <li key={href}><Link href={href}>{label}</Link></li>
               ))}
             </ul>

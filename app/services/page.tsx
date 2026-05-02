@@ -1,5 +1,36 @@
+import type { Metadata } from 'next';
+import FaqSchema from '@/components/FaqSchema';
+
+
+export const metadata: Metadata = {
+  title: 'Welding & Metal Fabrication Services in Warren, MI',
+  description: 'Custom metal fabrication, specialty solutions, and mobile on-site welding in Warren, Michigan. Railings, gates, fences, staircases, storm shields, and emergency repairs. Serving Metro Detroit.',
+  alternates: { canonical: 'https://www.hotfabwelding.com/services' },
+  openGraph: {
+    title: 'Welding & Fabrication Services | HotFab Welding Warren, MI',
+    description: 'Custom railings, gates, mobile welding and more. Family-owned, 25+ years experience. Free quotes for Warren MI and Metro Detroit.',
+    url: 'https://www.hotfabwelding.com/services',
+  },
+};
+
 import Image from 'next/image';
 import Link from 'next/link';
+
+
+const serviceFaqs = [
+  {
+    question: 'What custom metal fabrication services are available in Warren, MI?',
+    answer: 'HotFab Welding in Warren, Michigan offers custom railings (interior and exterior), gates, fences, balconies, spiral staircases, standard staircases, decorative metal grates, custom furniture, sculptures, and structural steel components — all built to your exact specifications.',
+  },
+  {
+    question: 'Do you offer mobile welding services in Metro Detroit?',
+    answer: 'Yes. HotFab Welding provides fully mobile on-site welding throughout Metro Detroit and Michigan. The mobile team handles truck and trailer repairs, structural reinforcement, field fabrication, equipment repairs, and emergency same-day welding service at your location.',
+  },
+  {
+    question: 'What materials can HotFab Welding work with?',
+    answer: 'HotFab Welding works with carbon steel, stainless steel, aluminum, and mild steel. The right material is recommended based on your project: stainless for corrosion resistance, aluminum for lightweight outdoor use, and carbon or mild steel for decorative and structural applications.',
+  },
+];
 
 export default function ServicesPage() {
   const services = [
@@ -65,6 +96,7 @@ export default function ServicesPage() {
 
   return (
     <>
+      <FaqSchema faqs={serviceFaqs} />
       <style >{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
 

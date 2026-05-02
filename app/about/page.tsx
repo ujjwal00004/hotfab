@@ -1,4 +1,16 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About Us — Family-Owned Welding Company in Warren, MI',
+  description: 'Learn about HotFab Welding — a family-owned welding and metal fabrication business in Warren, Michigan since 1999. MIG, TIG, Stick welding experts serving Metro Detroit.',
+  alternates: { canonical: 'https://www.hotfabwelding.com/about' },
+  openGraph: {
+    title: 'About HotFab Welding | Warren, Michigan',
+    description: 'Family-owned since 1999. Expert welding and metal fabrication in Warren, MI. 25+ years serving Metro Detroit.',
+    url: 'https://www.hotfabwelding.com/about',
+  },
+};
 
 export default function AboutPage() {
   const capabilities = [

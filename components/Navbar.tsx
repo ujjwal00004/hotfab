@@ -191,6 +191,7 @@ export default function Navbar() {
             <li><Link href="/gallery">Gallery</Link></li>
             <li><Link href="/services">Services</Link></li>
             <li><Link href="/blogs">Blog</Link></li>
+            <li><Link href="/faq">FAQ</Link></li>
             <li><Link href="/contact">Contact</Link></li>
           </ul>
 
@@ -216,8 +217,8 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       <div className={`hf-drawer ${isOpen ? 'visible' : ''}`}>
         <ul className="hf-drawer-links">
-          {['/', '/about', '/services', '/blogs', '/contact','/gallery'].map((href, i) => {
-            const labels = ['Home', 'About', 'Services', 'Blog', 'Contact','Gallery'];
+          {['/', '/about', '/services', '/blogs', '/faq', '/contact','/gallery'].map((href, i) => {
+            const labels = ['Home', 'About', 'Services', 'Blog', 'FAQ', 'Contact','Gallery'];
             return (
               <li key={i}>
                 <Link href={href} onClick={() => setIsOpen(false)}>{labels[i]}</Link>

@@ -1,14 +1,37 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 async function getBlog(slug: string) {
   const res = await import('@/data/blogs.json');
-  const blogs = res.default;
+  const blogs = res.default as any[];
+  return blogs.find((b: any) => b.slug.toLowerCase() === slug.toLowerCase());
+}
 
-  return blogs.find(
-    (blog: any) => blog.slug.toLowerCase() === slug.toLowerCase()
-  );
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const blog = await getBlog(slug);
+
+  if (!blog) {
+    return { title: 'Blog Post Not Found' };
+  }
+
+  return {
+    title: blog.title,
+    description: blog.excerpt,
+    alternates: {
+      canonical: `https://www.hotfabwelding.com/blogs/${blog.slug}`,
+    },
+    openGraph: {
+      title: blog.title,
+      description: blog.excerpt,
+      url: `https://www.hotfabwelding.com/blogs/${blog.slug}`,
+      type: 'article',
+      publishedTime: blog.date,
+      images: blog.image ? [{ url: blog.image, alt: blog.title }] : [],
+    },
+  };
 }
 
 async function getRelated(slug: string) {

@@ -1,0 +1,30 @@
+# HotFab Welding
+
+> Family-owned welding and custom metal fabrication company in Warren, Michigan. Founded 1999. Serving Metro Detroit and Michigan for over 25 years.
+
+HotFab Welding specializes in custom metal fabrication, mobile on-site welding, and specialty metal solutions. The business is located at 13118 E 9 Mile Rd, Warren, MI 48089. Phone: (248) 259-9956. Email: hotfabah@gmail.com.
+
+## Services
+
+- [Custom Metal Fabrication](https://www.hotfabwelding.com/services): Railings, gates, fences, balconies, spiral and standard staircases, decorative grates, metal furniture, sculptures, and structural steel components — built to exact client specifications.
+- [Specialty Metal Solutions](https://www.hotfabwelding.com/services): Storm shields, flood protection barriers, security panels, custom prototypes, one-off designs, and artistic metal sculptures and installations.
+- [Mobile On-Site Welding](https://www.hotfabwelding.com/services): Fully equipped mobile welding team for on-site repairs and installation throughout Metro Detroit. Handles truck and trailer repairs, equipment and structural reinforcement, field fabrication, and emergency same-day service.
+
+## Pages
+
+- [Home](https://www.hotfabwelding.com/): Overview of services, stats, client reviews, and contact CTA.
+- [Services](https://www.hotfabwelding.com/services): Full service catalog with materials, process steps, and project types.
+- [About](https://www.hotfabwelding.com/about): Company history since 1999, welding capabilities, values, and team background.
+- [Gallery](https://www.hotfabwelding.com/gallery): Photo and video portfolio of completed projects.
+- [Blog](https://www.hotfabwelding.com/blogs): Expert articles on welding and fabrication.
+- [FAQ](https://www.hotfabwelding.com/faq): Answers to common questions about services, pricing, materials, and process.
+- [Contact](https://www.hotfabwelding.com/contact): Quote request form, phone, email, and location.
+
+## Blog Posts
+
+- [Why Professional Welding Matters: Common Mistakes to Avoid](https://www.hotfabwelding.com/blogs/benefits-of-professional-welding)
+- [The Advantages of On-Site Mobile Welding Services in Michigan](https://www.hotfabwelding.com/blogs/on-site-welding-advantages)
+
+## FAQ
+
+- [Full FAQ page](https://www.hotfabwelding.com/faq)

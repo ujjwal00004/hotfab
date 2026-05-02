@@ -1,3 +1,16 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Welding & Metal Fabrication Blog | Tips & Guides Warren, MI',
+  description: 'Expert welding tips, guides, and project insights from HotFab Welding in Warren, Michigan. Learn about metal fabrication, on-site welding, railings, and more.',
+  alternates: { canonical: 'https://www.hotfabwelding.com/blogs' },
+  openGraph: {
+    title: 'Welding Blog | HotFab Welding Warren, MI',
+    description: 'Welding tips, fabrication guides, and project insights from Metro Detroit\'s trusted family welders.',
+    url: 'https://www.hotfabwelding.com/blogs',
+  },
+};
+
 import BlogCard from '@/components/BlogCard';
 import Link from 'next/link';
 

@@ -17,6 +17,17 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Redirect non-www to www for canonical domain consistency
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'hotfabwelding.com' }],
+        destination: 'https://www.hotfabwelding.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
