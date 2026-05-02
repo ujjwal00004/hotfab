@@ -4,6 +4,8 @@ import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import './globals.css';
 
+import Script from "next/script"; // 👈 ADD THIS
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.hotfabwelding.com'),
   title: {
@@ -85,6 +87,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-LZVSWPVNQK"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LZVSWPVNQK');
+          `}
+        </Script>
       <body>
         <JsonLd />
         <Navbar />
