@@ -201,7 +201,6 @@ export default function ServicesPage() {
         .sp-svc-image-bg {
           position: absolute; inset: 0;
           background-size: cover; background-position: center;
-          filter: brightness(0.3) saturate(0.5);
           transition: filter 0.5s ease;
         }
         .sp-service-block:hover .sp-svc-image-bg { filter: brightness(0.4) saturate(0.6); }
@@ -416,8 +415,8 @@ export default function ServicesPage() {
           <div className="sp-services-inner">
             {services.map((svc, i) => {
               const images = [
-                'https://images.unsplash.com/photo-1504917595217-d4dc5eb5e6c8?w=900&q=80',
-                'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=900&q=80',
+                'https://res.cloudinary.com/dty0qurl9/image/upload/v1777365279/ornamental-balcony-railing-michigan.jpg',
+                '',
                 'https://images.unsplash.com/photo-1581092160607-ee22731c9c39?w=900&q=80',
               ];
               return (
