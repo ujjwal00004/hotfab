@@ -10,8 +10,8 @@ const VID_EMBED = 'https://player.cloudinary.com/embed/?cloud_name=dty0qurl9&pub
 type MediaItem = { type: 'image' | 'video'; src: string; embedUrl?: string; alt: string; label: string; title: string; };
 
 const media: MediaItem[] = [
-  { type:'video', src:`${VID_THUMB}/welder-fabricating-steel-railing-warren-mi.jpg`, embedUrl:`${VID_EMBED}welder-fabricating-steel-railing-warren-mi`, alt:'Video of a welder fabricating a custom steel railing at Hot Fab Welding in Warren, MI', label:'Steel Railing Fabrication', title:'Welder Fabricating Custom Steel Railing — Warren, MI' },
-  { type:'video', src:`${VID_THUMB}/custom-metal-sculpture-warren-mi.jpg`, embedUrl:`${VID_EMBED}custom-metal-sculpture-warren-mi`, alt:'Video of a custom metal sculpture being welded and fabricated by Hot Fab Welding in Warren, MI', label:'Custom Metal Sculpture', title:'Custom Metal Sculpture Fabrication — Hot Fab Welding Warren, MI' },
+  // { type:'video', src:`${VID_THUMB}/welder-fabricating-steel-railing-warren-mi.jpg`, embedUrl:`${VID_EMBED}welder-fabricating-steel-railing-warren-mi`, alt:'Video of a welder fabricating a custom steel railing at Hot Fab Welding in Warren, MI', label:'Steel Railing Fabrication', title:'Welder Fabricating Custom Steel Railing — Warren, MI' },
+  // { type:'video', src:`${VID_THUMB}/custom-metal-sculpture-warren-mi.jpg`, embedUrl:`${VID_EMBED}custom-metal-sculpture-warren-mi`, alt:'Video of a custom metal sculpture being welded and fabricated by Hot Fab Welding in Warren, MI', label:'Custom Metal Sculpture', title:'Custom Metal Sculpture Fabrication — Hot Fab Welding Warren, MI' },
   { type:'image', src:`${IMG}/artistic-metal-installation-michigan.jpg`, alt:'Artistic metal installation designed and fabricated by Hot Fab Welding in Michigan', label:'Artistic Metal Installation', title:'Artistic Metal Installation — Hot Fab Welding Michigan' },
   { type:'image', src:`${IMG}/wrought-iron-staircase-warren-mi.jpg`, alt:'Wrought iron staircase railing custom fabricated and installed in Warren, MI', label:'Wrought Iron Staircase', title:'Wrought Iron Staircase Railing — Warren, MI' },
   { type:'image', src:`${IMG}/residential-balcony-railing-steel-michigan.jpg`, alt:'Custom residential steel balcony railing installed by Hot Fab Welding in Michigan', label:'Residential Balcony Railing', title:'Residential Steel Balcony Railing — Michigan' },
@@ -140,7 +140,6 @@ export default function GalleryClient() {
               {media.map((item, i) => (
                 <div key={i} className="gl-item" onClick={() => setLightbox(i)} role="button" tabIndex={0} aria-label={`View ${item.type === 'video' ? 'video' : 'photo'}: ${item.label}`} title={item.title} onKeyDown={(e) => e.key === 'Enter' && setLightbox(i)}>
                   <img src={item.src} alt={item.alt} loading="lazy" width={600} height={400} />
-                  {item.type === 'video' && (<><div className="gl-video-tag">Video</div><div className="gl-play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></>)}
                   <div className="gl-item-overlay"><span className="gl-item-label">{item.label}</span></div>
                   {item.type === 'image' && <div className="gl-item-expand">⤢</div>}
                 </div>
