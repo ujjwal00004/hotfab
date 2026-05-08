@@ -18,15 +18,29 @@ export default function ContactClient() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', phone: '', email: '', service: '', message: '' });
-    }, 4000);
-  };
 
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfTTHCsSS8oTVjYr9LUz0u2NWR0a_nJTy_-cdqMRraioMlfl0IIBHVH98rC1NQGi8x/exec';
+
+    try {
+      const res=await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      console.log('Form submission response:', res);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', phone: '', email: '', service: '', message: '' });
+      }, 4000);
+    } catch (err) {
+      console.log(err)
+      alert('Something went wrong. Please call us at (248) 259-9956.');
+    }
+  };
   const info = [
     { label: 'Location', value: 'Warren, Michigan', sub: 'Metro Detroit Area', href: null },
     { label: 'Phone', value: '(248) 259-9956', sub: 'Calls & texts welcome', href: 'tel:2482599956' },
@@ -177,7 +191,7 @@ export default function ContactClient() {
                     {item.href ? (
                       <a href={item.href} className="cp-info-value">{item.value}</a>
                     ) : (
-                      <span className="cp-info-value" style={{cursor:'default'}}>{item.value}</span>
+                      <span className="cp-info-value" style={{ cursor: 'default' }}>{item.value}</span>
                     )}
                     <p className="cp-info-sub">{item.sub}</p>
                   </div>
@@ -198,9 +212,9 @@ export default function ContactClient() {
 
         <section className="cp-trust">
           <div className="cp-trust-inner">
-            {[{num:'25+',label:'Years Experience'},{num:'2K+',label:'Projects Completed'},{num:'5★',label:'Google Rating'},{num:'1',label:'Day Response Time'}].map((t,i) => (
+            {[{ num: '25+', label: 'Years Experience' }, { num: '2K+', label: 'Projects Completed' }, { num: '5★', label: 'Google Rating' }, { num: '1', label: 'Day Response Time' }].map((t, i) => (
               <div key={i} className="cp-trust-item">
-                <div className="cp-trust-num">{t.num.replace('★','')}<span>{t.num.includes('★')?'★':''}</span></div>
+                <div className="cp-trust-num">{t.num.replace('★', '')}<span>{t.num.includes('★') ? '★' : ''}</span></div>
                 <div className="cp-trust-label">{t.label}</div>
               </div>
             ))}
