@@ -576,7 +576,7 @@ export default function HomePage() {
           <div className="why-image-wrap">
             <div className="why-image-frame">
               <img
-                src="https://images.pexels.com/photos/3680094/pexels-photo-3680094.jpeg?w=700&q=80"
+                src="https://res.cloudinary.com/dty0qurl9/image/upload/v1777365279/exterior-stair-railing-fabrication-warren.jpg"
                 alt="HotFab Welding professional welder fabricating custom metalwork in Warren, Michigan"
               />
             </div>
