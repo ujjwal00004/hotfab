@@ -9,7 +9,7 @@ export default function JsonLd() {
     "description": "Family-owned welding and custom metal fabrication company in Warren, Michigan. Specializing in custom railings, gates, fences, balconies, staircases, structural steel, and mobile on-site welding. Serving Metro Detroit since 1999.",
     "url": "https://www.hotfabwelding.com",
     "telephone": "+12482599956",
-    "email": "hotfabah@gmail.com",
+    "email": "hotfabwelding@gmail.com",
     "foundingDate": "1999",
     "numberOfEmployees": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 10 },
     "address": {

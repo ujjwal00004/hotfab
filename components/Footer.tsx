@@ -242,7 +242,7 @@ export default function Footer() {
 
             <div className="hf-contact-block">
               <div className="hf-contact-label">Email</div>
-              <a href="mailto:hotfabah@gmail.com" className="hf-contact-email">hotfabah@gmail.com</a>
+              <a href="mailto:hotfabwelding@gmail.com" className="hf-contact-email">hotfabwelding@gmail.com</a>
             </div>
 
             <div className="hf-contact-block">

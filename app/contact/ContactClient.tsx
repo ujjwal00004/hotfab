@@ -44,7 +44,7 @@ export default function ContactClient() {
   const info = [
     { label: 'Location', value: 'Warren, Michigan', sub: 'Metro Detroit Area', href: null },
     { label: 'Phone', value: '(248) 259-9956', sub: 'Calls & texts welcome', href: 'tel:2482599956' },
-    { label: 'Email', value: 'hotfabah@gmail.com', sub: 'Reply within 1 business day', href: 'mailto:hotfabah@gmail.com' },
+    { label: 'Email', value: 'hotfabwelding@gmail.com', sub: 'Reply within 1 business day', href: 'mailto:hotfabwelding@gmail.com' },
     { label: 'Hours', value: 'Mon–Fri: 8AM – 5PM', sub: 'Sat: By Appointment', href: null },
   ];
 

@@ -25,7 +25,7 @@ export const faqs = [
   { question: 'What is the process for starting a custom metalwork project?', answer: 'The process has four steps: (1) Consultation — HotFab visits your site or discusses your project needs by phone or email. (2) Design & Quote — you receive a free detailed quote with drawings and material recommendations. (3) Fabrication — work is precision-built at the Warren, MI shop at 13118 E 9 Mile Rd. (4) Delivery & Installation — professional on-site installation and final inspection.' },
   { question: 'What areas does HotFab Welding serve?', answer: 'HotFab Welding is based in Warren, Michigan and serves the entire Metro Detroit area, including Sterling Heights, Troy, Dearborn, Livonia, Macomb, Clinton Township, Roseville, Eastpointe, and surrounding Michigan communities.' },
   { question: 'Can HotFab Welding fabricate spiral staircases?', answer: 'Yes. HotFab Welding builds both standard and spiral staircases in steel, stainless steel, and aluminum — for residential homes, commercial buildings, and industrial facilities throughout Michigan.' },
-  { question: 'How do I get a free quote from HotFab Welding?', answer: 'You can request a free quote by calling (248) 259-9956, emailing hotfabah@gmail.com, or filling out the contact form at hotfabwelding.com/contact. HotFab is available Monday through Friday 8AM–5PM and Saturday 8AM–2PM.' },
+  { question: 'How do I get a free quote from HotFab Welding?', answer: 'You can request a free quote by calling (248) 259-9956, emailing hotfabwelding@gmail.com, or filling out the contact form at hotfabwelding.com/contact. HotFab is available Monday through Friday 8AM–5PM and Saturday 8AM–2PM.' },
 ];
 
 export default function FaqPage() {

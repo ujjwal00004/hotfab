@@ -22,7 +22,7 @@ Type: Family-owned welding and custom metal fabrication
 Founded: 1999
 Address: 13118 E 9 Mile Rd, Warren, MI 48089
 Phone: (248) 259-9956
-Email: hotfabah@gmail.com
+Email: hotfabwelding@gmail.com
 Website: https://www.hotfabwelding.com
 Hours: Monday–Friday 8:00 AM–5:00 PM, Saturday 8:00 AM–2:00 PM
 Licensed and insured. Free quotes available.

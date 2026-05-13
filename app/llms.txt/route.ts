@@ -10,7 +10,7 @@ export async function GET() {
 
 > Family-owned welding and custom metal fabrication in Warren, Michigan. Founded 1999. Serving Metro Detroit for 25+ years.
 
-Phone: (248) 259-9956 | Email: hotfabah@gmail.com | Address: 13118 E 9 Mile Rd, Warren, MI 48089
+Phone: (248) 259-9956 | Email: hotfabwelding@gmail.com | Address: 13118 E 9 Mile Rd, Warren, MI 48089
 
 ## Services
 
