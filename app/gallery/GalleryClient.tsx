@@ -7,44 +7,75 @@ const IMG = 'https://res.cloudinary.com/dty0qurl9/image/upload/v1777365279';
 const VID_THUMB = 'https://res.cloudinary.com/dty0qurl9/video/upload/so_0,w_600,h_400,c_fill,f_jpg';
 const VID_EMBED = 'https://player.cloudinary.com/embed/?cloud_name=dty0qurl9&public_id=';
 
-type MediaItem = { type: 'image' | 'video'; src: string; embedUrl?: string; alt: string; label: string; title: string; };
+type Category = 'Railings' | 'Stairs & Staircases' | 'Fences & Gates' | 'Custom Fabrication';
+const categories: ('All Work' | Category)[] = ['All Work', 'Railings', 'Stairs & Staircases', 'Fences & Gates', 'Custom Fabrication'];
+
+type MediaItem = { type: 'image' | 'video'; src: string; embedUrl?: string; alt: string; label: string; title: string; category: Category };
 
 const media: MediaItem[] = [
-  // { type:'video', src:`${VID_THUMB}/welder-fabricating-steel-railing-warren-mi.jpg`, embedUrl:`${VID_EMBED}welder-fabricating-steel-railing-warren-mi`, alt:'Video of a welder fabricating a custom steel railing at Hot Fab Welding in Warren, MI', label:'Steel Railing Fabrication', title:'Welder Fabricating Custom Steel Railing — Warren, MI' },
-  // { type:'video', src:`${VID_THUMB}/custom-metal-sculpture-warren-mi.jpg`, embedUrl:`${VID_EMBED}custom-metal-sculpture-warren-mi`, alt:'Video of a custom metal sculpture being welded and fabricated by Hot Fab Welding in Warren, MI', label:'Custom Metal Sculpture', title:'Custom Metal Sculpture Fabrication — Hot Fab Welding Warren, MI' },
-  { type:'image', src:`${IMG}/artistic-metal-installation-michigan.jpg`, alt:'Artistic metal installation designed and fabricated by Hot Fab Welding in Michigan', label:'Artistic Metal Installation', title:'Artistic Metal Installation — Hot Fab Welding Michigan' },
-  { type:'image', src:`${IMG}/wrought-iron-staircase-warren-mi.jpg`, alt:'Wrought iron staircase railing custom fabricated and installed in Warren, MI', label:'Wrought Iron Staircase', title:'Wrought Iron Staircase Railing — Warren, MI' },
-  { type:'image', src:`${IMG}/residential-balcony-railing-steel-michigan.jpg`, alt:'Custom residential steel balcony railing installed by Hot Fab Welding in Michigan', label:'Residential Balcony Railing', title:'Residential Steel Balcony Railing — Michigan' },
-  { type:'image', src:`${IMG}/ornamental-balcony-railing-michigan.jpg`, alt:'Ornamental steel balcony railing custom fabricated and installed in Michigan', label:'Ornamental Balcony Railing', title:'Ornamental Balcony Railing — Hot Fab Welding Michigan' },
-  { type:'image', src:`${IMG}/modern-glass-steel-handrail-warren-mi.jpg`, alt:'Modern glass and steel handrail custom built by Hot Fab Welding in Warren, MI', label:'Glass & Steel Handrail', title:'Modern Glass Steel Handrail — Warren, MI' },
-  { type:'image', src:`${IMG}/interior-steel-railing-metro-detroit.jpg`, alt:'Interior steel staircase railing fabricated and installed in Metro Detroit by Hot Fab Welding', label:'Interior Steel Railing', title:'Interior Steel Staircase Railing — Metro Detroit' },
-  { type:'image', src:`${IMG}/exterior-stair-railing-fabrication-warren.jpg`, alt:'Exterior stair railing fabrication and installation by Hot Fab Welding in Warren, MI', label:'Exterior Stair Railing', title:'Exterior Stair Railing Fabrication — Warren, MI' },
-  { type:'image', src:`${IMG}/exterior-stair-railing-custom-steel-warren.jpg`, alt:'Custom exterior steel stair railing designed and installed in Warren, MI', label:'Custom Exterior Stair Railing', title:'Custom Exterior Steel Stair Railing — Warren, MI' },
-  { type:'image', src:`${IMG}/exterior-handrail-custom-steel-warren-mi.jpg`, alt:'Custom steel exterior handrail fabricated by Hot Fab Welding in Warren, MI', label:'Exterior Steel Handrail', title:'Custom Exterior Steel Handrail — Warren, MI' },
-  { type:'image', src:`${IMG}/black-powder-coat-staircase-railing-michigan.jpg`, alt:'Black powder coated staircase railing fabricated and installed in Michigan by Hot Fab Welding', label:'Black Powder Coat Staircase', title:'Black Powder Coat Staircase Railing — Michigan' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=646,fit=crop,trim=0;118.85714285714286;0;100.57142857142857/Z8a0FiwOwBsnBFYS/3060964879091851674-mp84pr1yo2cL96JJ.jpeg', alt:'Custom welded metalwork project by Hot Fab Welding in Warren, MI', label:'Custom Metalwork', title:'Custom Welded Metalwork — Hot Fab Welding Warren, MI' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=1035,fit=crop,trim=0;0;0;15.207920792079207/Z8a0FiwOwBsnBFYS/2308468182788749144-mePgpZNpwvfwlaqg.jpeg', alt:'Custom steel railing fabrication and installation in Metro Detroit', label:'Steel Railing Project', title:'Custom Steel Railing — Metro Detroit' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=370,fit=crop,trim=122.22811671087533;0;427.7984084880636;0/Z8a0FiwOwBsnBFYS/6709774811281166854-YX4jJkNJVDTnoqZK.jpeg', alt:'Wide panoramic view of custom steel railing installation by Hot Fab Welding', label:'Panoramic Railing', title:'Panoramic Steel Railing Installation — Warren, MI' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=1035,fit=crop,trim=0;0;0;15.207920792079207/Z8a0FiwOwBsnBFYS/9069602396905071688-Yle4pxNx6pIo4Rg3.jpeg', alt:'Custom fabricated staircase railing installed in Michigan', label:'Staircase Railing', title:'Custom Staircase Railing — Michigan' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=370,fit=crop,trim=183.342175066313;0;366.684350132626;0/Z8a0FiwOwBsnBFYS/6147184802881062883-mp84pEXKkocb5yBP.jpeg', alt:'Long horizontal exterior steel railing fabricated and installed by Hot Fab Welding', label:'Exterior Long Railing', title:'Long Exterior Steel Railing — Metro Detroit' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3088-xUn83S587ufTuXzK.jpeg', alt:'Custom welding fabrication project completed by Hot Fab Welding in Warren, MI', label:'Fabrication Project', title:'Custom Welding Fabrication — Warren, MI' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3100-ZSRu8aQROXL0cVxh.jpeg', alt:'Detailed metalwork and welding project by Hot Fab Welding', label:'Detailed Metalwork', title:'Detailed Custom Metalwork — Hot Fab Welding' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3096-k1RxkbAZQt64ro5z.jpeg', alt:'Precision steel fabrication and welding work by Hot Fab Welding in Metro Detroit', label:'Precision Steelwork', title:'Precision Steel Fabrication — Metro Detroit' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3087-eJvqCgNPVd03HRf0.jpeg', alt:'Custom steel structure welded and fabricated by Hot Fab Welding in Warren, MI', label:'Custom Steel Structure', title:'Custom Steel Structure — Warren, MI' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3823-zbg8WYE23UnV62Gc.jpeg', alt:'Finished custom welding project by Hot Fab Welding in Michigan', label:'Finished Project', title:'Finished Custom Welding Project — Michigan' },
-  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_2909-13Y7DZTFbZBR6yFU.jpeg', alt:'Quality welding and fabrication craftsmanship by Hot Fab Welding', label:'Welding Craftsmanship', title:'Quality Welding Craftsmanship — Hot Fab Welding' },
+  // { type:'video', src:`${VID_THUMB}/welder-fabricating-steel-railing-warren-mi.jpg`, embedUrl:`${VID_EMBED}welder-fabricating-steel-railing-warren-mi`, alt:'Video of a welder fabricating a custom steel railing at Hot Fab Welding in Warren, MI', label:'Steel Railing Fabrication', title:'Welder Fabricating Custom Steel Railing — Warren, MI', category:'Railings' },
+  // { type:'video', src:`${VID_THUMB}/custom-metal-sculpture-warren-mi.jpg`, embedUrl:`${VID_EMBED}custom-metal-sculpture-warren-mi`, alt:'Video of a custom metal sculpture being welded and fabricated by Hot Fab Welding in Warren, MI', label:'Custom Metal Sculpture', title:'Custom Metal Sculpture Fabrication — Hot Fab Welding Warren, MI', category:'Custom Fabrication' },
+
+  // ——— Railings ———
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719577/black-wrought-iron-porch-railing-brick-home-warren-mi_ru3rey.jpg', alt:'Black wrought iron porch railing installed on a brick home in Warren, MI', label:'Iron Porch Railing', title:'Black Wrought Iron Porch Railing — Brick Home Warren, MI', category:'Railings' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719668/decorative-iron-porch-railings-front-entry-michigan_btskud.jpg', alt:'Decorative iron porch railings at a front entry, fabricated by Hot Fab Welding in Michigan', label:'Decorative Porch Railings', title:'Decorative Iron Porch Railings — Front Entry Michigan', category:'Railings' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719702/custom-iron-step-railings-luxury-home-metro-detroit_obkhr9.jpg', alt:'Custom iron step railings on a luxury home entrance in Metro Detroit', label:'Luxury Home Step Railings', title:'Custom Iron Step Railings — Luxury Home Metro Detroit', category:'Railings' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719538/ornate-wrought-iron-railing-fabrication-metro-detroit_wkxcbe.jpg', alt:'Ornate wrought iron railing being fabricated in the Hot Fab Welding shop for a Metro Detroit home', label:'Ornate Iron Railing', title:'Ornate Wrought Iron Railing Fabrication — Metro Detroit', category:'Railings' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719417/steel-railing-panel-fabrication-welding-shop-warren-mi_ikr1nb.jpg', alt:'Steel railing panel being fabricated in the Hot Fab Welding shop in Warren, MI', label:'Railing Panel Fabrication', title:'Steel Railing Panel Fabrication — Welding Shop Warren, MI', category:'Railings' },
+  { type:'image', src:`${IMG}/residential-balcony-railing-steel-michigan.jpg`, alt:'Custom residential steel balcony railing installed by Hot Fab Welding in Michigan', label:'Residential Balcony Railing', title:'Residential Steel Balcony Railing — Michigan', category:'Railings' },
+  { type:'image', src:`${IMG}/ornamental-balcony-railing-michigan.jpg`, alt:'Ornamental steel balcony railing custom fabricated and installed in Michigan', label:'Ornamental Balcony Railing', title:'Ornamental Balcony Railing — Hot Fab Welding Michigan', category:'Railings' },
+  { type:'image', src:`${IMG}/modern-glass-steel-handrail-warren-mi.jpg`, alt:'Modern glass and steel handrail custom built by Hot Fab Welding in Warren, MI', label:'Glass & Steel Handrail', title:'Modern Glass Steel Handrail — Warren, MI', category:'Railings' },
+  { type:'image', src:`${IMG}/interior-steel-railing-metro-detroit.jpg`, alt:'Interior steel staircase railing fabricated and installed in Metro Detroit by Hot Fab Welding', label:'Interior Steel Railing', title:'Interior Steel Staircase Railing — Metro Detroit', category:'Railings' },
+  { type:'image', src:`${IMG}/exterior-stair-railing-fabrication-warren.jpg`, alt:'Exterior stair railing fabrication and installation by Hot Fab Welding in Warren, MI', label:'Exterior Stair Railing', title:'Exterior Stair Railing Fabrication — Warren, MI', category:'Railings' },
+  { type:'image', src:`${IMG}/exterior-stair-railing-custom-steel-warren.jpg`, alt:'Custom exterior steel stair railing designed and installed in Warren, MI', label:'Custom Exterior Stair Railing', title:'Custom Exterior Steel Stair Railing — Warren, MI', category:'Railings' },
+  { type:'image', src:`${IMG}/exterior-handrail-custom-steel-warren-mi.jpg`, alt:'Custom steel exterior handrail fabricated by Hot Fab Welding in Warren, MI', label:'Exterior Steel Handrail', title:'Custom Exterior Steel Handrail — Warren, MI', category:'Railings' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=1035,fit=crop,trim=0;0;0;15.207920792079207/Z8a0FiwOwBsnBFYS/2308468182788749144-mePgpZNpwvfwlaqg.jpeg', alt:'Custom steel railing fabrication and installation in Metro Detroit', label:'Steel Railing Project', title:'Custom Steel Railing — Metro Detroit', category:'Railings' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=370,fit=crop,trim=122.22811671087533;0;427.7984084880636;0/Z8a0FiwOwBsnBFYS/6709774811281166854-YX4jJkNJVDTnoqZK.jpeg', alt:'Wide panoramic view of custom steel railing installation by Hot Fab Welding', label:'Panoramic Railing', title:'Panoramic Steel Railing Installation — Warren, MI', category:'Railings' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=1035,fit=crop,trim=0;0;0;15.207920792079207/Z8a0FiwOwBsnBFYS/9069602396905071688-Yle4pxNx6pIo4Rg3.jpeg', alt:'Custom fabricated staircase railing installed in Michigan', label:'Staircase Railing', title:'Custom Staircase Railing — Michigan', category:'Railings' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=370,fit=crop,trim=183.342175066313;0;366.684350132626;0/Z8a0FiwOwBsnBFYS/6147184802881062883-mp84pEXKkocb5yBP.jpeg', alt:'Long horizontal exterior steel railing fabricated and installed by Hot Fab Welding', label:'Exterior Long Railing', title:'Long Exterior Steel Railing — Metro Detroit', category:'Railings' },
+
+  // ——— Stairs & Staircases ———
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719371/custom-steel-stair-railing-installation-warren-mi_kuyuip.jpg', alt:'Custom steel stair railing installation in progress by Hot Fab Welding in Warren, MI', label:'Steel Stair Railing Install', title:'Custom Steel Stair Railing Installation — Warren, MI', category:'Stairs & Staircases' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719897/aluminum-staircase-diamond-plate-treads-fabrication-warren-mi_pyhvqd.jpg', alt:'Aluminum staircase with diamond plate treads fabricated in the Hot Fab Welding shop in Warren, MI', label:'Aluminum Staircase', title:'Aluminum Staircase with Diamond Plate Treads — Warren, MI', category:'Stairs & Staircases' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719505/aluminum-mesh-stair-treads-custom-fabrication-warren-mi_cg07ez.jpg', alt:'Aluminum mesh stair treads custom fabricated by Hot Fab Welding in Warren, MI', label:'Aluminum Mesh Stair Treads', title:'Aluminum Mesh Stair Treads — Custom Fabrication Warren, MI', category:'Stairs & Staircases' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719923/prefabricated-aluminum-stairs-ready-for-delivery-warren-mi_zwghn8.jpg', alt:'Prefabricated aluminum stairs ready for delivery from Hot Fab Welding in Warren, MI', label:'Prefab Aluminum Stairs', title:'Prefabricated Aluminum Stairs Ready for Delivery — Warren, MI', category:'Stairs & Staircases' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719946/custom-aluminum-staircases-mobile-delivery-metro-detroit_iwf7no.jpg', alt:'Custom aluminum staircases loaded on a trailer for mobile delivery across Metro Detroit', label:'Staircase Mobile Delivery', title:'Custom Aluminum Staircases — Mobile Delivery Metro Detroit', category:'Stairs & Staircases' },
+  { type:'image', src:`${IMG}/wrought-iron-staircase-warren-mi.jpg`, alt:'Wrought iron staircase railing custom fabricated and installed in Warren, MI', label:'Wrought Iron Staircase', title:'Wrought Iron Staircase Railing — Warren, MI', category:'Stairs & Staircases' },
+  { type:'image', src:`${IMG}/black-powder-coat-staircase-railing-michigan.jpg`, alt:'Black powder coated staircase railing fabricated and installed in Michigan by Hot Fab Welding', label:'Black Powder Coat Staircase', title:'Black Powder Coat Staircase Railing — Michigan', category:'Stairs & Staircases' },
+
+  // ——— Fences & Gates ———
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719732/custom-wrought-iron-gate-gothic-arch-design-michigan_ekppcw.jpg', alt:'Custom wrought iron gate with gothic arch design fabricated by Hot Fab Welding in Michigan', label:'Gothic Arch Iron Gate', title:'Custom Wrought Iron Gate — Gothic Arch Design Michigan', category:'Fences & Gates' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719637/black-metal-patio-fence-installation-metro-detroit_zvxcwe.jpg', alt:'Black metal patio fence installed around a backyard patio in Metro Detroit', label:'Patio Fence Install', title:'Black Metal Patio Fence Installation — Metro Detroit', category:'Fences & Gates' },
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719606/galvanized-steel-grating-gate-fabrication-warren-mi_jhxpkb.jpg', alt:'Galvanized steel grating gate fabricated by Hot Fab Welding in Warren, MI', label:'Steel Grating Gate', title:'Galvanized Steel Grating Gate Fabrication — Warren, MI', category:'Fences & Gates' },
+
+  // ——— Custom Fabrication ———
+  { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719474/custom-metal-storm-shield-panels-michiganhome.jpg_buoore.jpg', alt:'Custom metal storm shield panels fabricated and installed on a home by Hot Fab Welding', label:'Storm Shield Panels', title:'Custom Metal Storm Shield Panels — Hot Fab Welding', category:'Custom Fabrication' },
+  { type:'image', src:`${IMG}/artistic-metal-installation-michigan.jpg`, alt:'Artistic metal installation designed and fabricated by Hot Fab Welding in Michigan', label:'Artistic Metal Installation', title:'Artistic Metal Installation — Hot Fab Welding Michigan', category:'Custom Fabrication' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=646,fit=crop,trim=0;118.85714285714286;0;100.57142857142857/Z8a0FiwOwBsnBFYS/3060964879091851674-mp84pr1yo2cL96JJ.jpeg', alt:'Custom welded metalwork project by Hot Fab Welding in Warren, MI', label:'Custom Metalwork', title:'Custom Welded Metalwork — Hot Fab Welding Warren, MI', category:'Custom Fabrication' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3088-xUn83S587ufTuXzK.jpeg', alt:'Custom welding fabrication project completed by Hot Fab Welding in Warren, MI', label:'Fabrication Project', title:'Custom Welding Fabrication — Warren, MI', category:'Custom Fabrication' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3100-ZSRu8aQROXL0cVxh.jpeg', alt:'Detailed metalwork and welding project by Hot Fab Welding', label:'Detailed Metalwork', title:'Detailed Custom Metalwork — Hot Fab Welding', category:'Custom Fabrication' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3096-k1RxkbAZQt64ro5z.jpeg', alt:'Precision steel fabrication and welding work by Hot Fab Welding in Metro Detroit', label:'Precision Steelwork', title:'Precision Steel Fabrication — Metro Detroit', category:'Custom Fabrication' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3087-eJvqCgNPVd03HRf0.jpeg', alt:'Custom steel structure welded and fabricated by Hot Fab Welding in Warren, MI', label:'Custom Steel Structure', title:'Custom Steel Structure — Warren, MI', category:'Custom Fabrication' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_3823-zbg8WYE23UnV62Gc.jpeg', alt:'Finished custom welding project by Hot Fab Welding in Michigan', label:'Finished Project', title:'Finished Custom Welding Project — Michigan', category:'Custom Fabrication' },
+  { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=941,fit=crop,trim=57.94336810730254;0;119.10581222056632;0/Z8a0FiwOwBsnBFYS/img_2909-13Y7DZTFbZBR6yFU.jpeg', alt:'Quality welding and fabrication craftsmanship by Hot Fab Welding', label:'Welding Craftsmanship', title:'Quality Welding Craftsmanship — Hot Fab Welding', category:'Custom Fabrication' },
 ];
 
 export default function GalleryClient() {
+  const [activeCategory, setActiveCategory] = useState<(typeof categories)[number]>('All Work');
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const prev = () => setLightbox((i) => (i !== null ? (i - 1 + media.length) % media.length : null));
-  const next = () => setLightbox((i) => (i !== null ? (i + 1) % media.length : null));
+
+  const filtered = activeCategory === 'All Work' ? media : media.filter((m) => m.category === activeCategory);
+
+  const prev = () => setLightbox((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null));
+  const next = () => setLightbox((i) => (i !== null ? (i + 1) % filtered.length : null));
   const handleKey = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
     if (e.key === 'Escape') setLightbox(null);
   };
-  const current = lightbox !== null ? media[lightbox] : null;
+  const current = lightbox !== null ? filtered[lightbox] : null;
+  const selectCategory = (cat: (typeof categories)[number]) => { setActiveCategory(cat); setLightbox(null); };
+  const countFor = (cat: (typeof categories)[number]) => (cat === 'All Work' ? media.length : media.filter((m) => m.category === cat).length);
 
   return (
     <>
@@ -68,8 +99,13 @@ export default function GalleryClient() {
         .gl-hero-badge-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--smoke);margin-top:6px;}
         .gl-section{padding:0 48px 120px;}
         .gl-inner{max-width:1100px;margin:0 auto;}
-        .gl-grid-label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--forge);margin-bottom:40px;display:flex;align-items:center;gap:12px;}
+        .gl-grid-label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--forge);margin-bottom:28px;display:flex;align-items:center;gap:12px;}
         .gl-grid-label::after{content:'';flex:1;height:1px;background:var(--slag);}
+        .gl-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px;}
+        .gl-filter{background:transparent;border:1px solid var(--slag);color:var(--ash);padding:12px 22px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px;}
+        .gl-filter:hover{border-color:var(--forge);color:var(--white);}
+        .gl-filter.active{background:var(--forge);border-color:var(--forge);color:var(--white);}
+        .gl-filter-count{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:inherit;opacity:0.65;}
         .gl-masonry{columns:3;column-gap:3px;}
         .gl-item{break-inside:avoid;margin-bottom:3px;position:relative;overflow:hidden;cursor:pointer;display:block;background:var(--steel);}
         .gl-item::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--forge);z-index:3;transform:scaleY(0);transform-origin:bottom;transition:transform 0.4s ease;}
@@ -113,7 +149,7 @@ export default function GalleryClient() {
         .gl-btn-primary:hover{background:var(--forge-light);border-color:var(--forge-light);}
         .gl-btn-ghost{background:transparent;color:var(--white);padding:16px 36px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:2px solid var(--slag);transition:all 0.2s;white-space:nowrap;}
         .gl-btn-ghost:hover{border-color:var(--white);}
-        @media(max-width:900px){.gl-hero{padding:140px 24px 72px;}.gl-hero-inner{grid-template-columns:1fr;}.gl-hero-badge{display:none;}.gl-section{padding:0 16px 80px;}.gl-masonry{columns:2;}.gl-lb-prev{left:12px;}.gl-lb-next{right:12px;}.gl-lb-nav{width:40px;height:40px;font-size:16px;}.gl-cta{padding:60px 24px;}.gl-cta-inner{flex-direction:column;align-items:flex-start;}.gl-lb-video-wrap{width:92vw;}}
+        @media(max-width:900px){.gl-hero{padding:140px 24px 72px;}.gl-hero-inner{grid-template-columns:1fr;}.gl-hero-badge{display:none;}.gl-section{padding:0 16px 80px;}.gl-masonry{columns:2;}.gl-filter{padding:10px 16px;font-size:10px;}.gl-lb-prev{left:12px;}.gl-lb-next{right:12px;}.gl-lb-nav{width:40px;height:40px;font-size:16px;}.gl-cta{padding:60px 24px;}.gl-cta-inner{flex-direction:column;align-items:flex-start;}.gl-lb-video-wrap{width:92vw;}}
         @media(max-width:480px){.gl-masonry{columns:1;}}
       `}</style>
 
@@ -124,7 +160,7 @@ export default function GalleryClient() {
             <div>
               <div className="gl-hero-tag">Real Work. Real Welds.</div>
               <h1 className="gl-hero-title">Our <em>Work</em></h1>
-              <p className="gl-hero-sub">Videos and photos of real projects — custom railings, balconies, staircases, and precision metalwork delivered across Warren, MI and Metro Detroit.</p>
+              <p className="gl-hero-sub">Videos and photos of real projects — custom railings, balconies, staircases, and precision metalwork delivered across Michigan.</p>
             </div>
             <div className="gl-hero-badge">
               <div className="gl-hero-badge-num">{media.length}<span>+</span></div>
@@ -135,10 +171,17 @@ export default function GalleryClient() {
 
         <section className="gl-section">
           <div className="gl-inner">
-            <div className="gl-grid-label">Project Gallery — Warren, MI & Metro Detroit</div>
+            <div className="gl-grid-label">Project Gallery — Browse by Category</div>
+            <div className="gl-filters" role="tablist" aria-label="Filter gallery by category">
+              {categories.map((cat) => (
+                <button key={cat} role="tab" aria-selected={activeCategory === cat} className={`gl-filter${activeCategory === cat ? ' active' : ''}`} onClick={() => selectCategory(cat)}>
+                  {cat} <span className="gl-filter-count">{countFor(cat)}</span>
+                </button>
+              ))}
+            </div>
             <div className="gl-masonry">
-              {media.map((item, i) => (
-                <div key={i} className="gl-item" onClick={() => setLightbox(i)} role="button" tabIndex={0} aria-label={`View ${item.type === 'video' ? 'video' : 'photo'}: ${item.label}`} title={item.title} onKeyDown={(e) => e.key === 'Enter' && setLightbox(i)}>
+              {filtered.map((item, i) => (
+                <div key={item.src} className="gl-item" onClick={() => setLightbox(i)} role="button" tabIndex={0} aria-label={`View ${item.type === 'video' ? 'video' : 'photo'}: ${item.label}`} title={item.title} onKeyDown={(e) => e.key === 'Enter' && setLightbox(i)}>
                   <img src={item.src} alt={item.alt} loading="lazy" width={600} height={400} />
                   <div className="gl-item-overlay"><span className="gl-item-label">{item.label}</span></div>
                   {item.type === 'image' && <div className="gl-item-expand">⤢</div>}
@@ -157,13 +200,13 @@ export default function GalleryClient() {
               <div className="gl-lb-video-wrap">
                 <div className="gl-lb-top-line" />
                 <iframe src={`${current.embedUrl}&autoplay=true`} title={current.title} allow="autoplay; fullscreen; encrypted-media" allowFullScreen />
-                <div className="gl-lb-meta"><span className="gl-lb-label">{current.label}</span><span className="gl-lb-counter"><span>{lightbox + 1}</span> / {media.length}</span></div>
+                <div className="gl-lb-meta"><span className="gl-lb-label">{current.label}</span><span className="gl-lb-counter"><span>{lightbox + 1}</span> / {filtered.length}</span></div>
               </div>
             ) : (
               <div className="gl-lb-img-wrap">
                 <div className="gl-lb-top-line" />
                 <img src={current.src} alt={current.alt} />
-                <div className="gl-lb-meta"><span className="gl-lb-label">{current.label}</span><span className="gl-lb-counter"><span>{lightbox + 1}</span> / {media.length}</span></div>
+                <div className="gl-lb-meta"><span className="gl-lb-label">{current.label}</span><span className="gl-lb-counter"><span>{lightbox + 1}</span> / {filtered.length}</span></div>
               </div>
             )}
           </div>
