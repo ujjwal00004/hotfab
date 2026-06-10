@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
 import blogs from '@/data/blogs.json';
+import { services } from '@/data/services';
 
 export async function GET() {
   const blogList = (blogs as any[])
     .map((b) => `- [${b.title}](https://www.hotfabwelding.com/blogs/${b.slug})`)
+    .join('\n');
+
+  const serviceList = services
+    .map((s) => `- [${s.serviceName}](https://www.hotfabwelding.com/services/${s.slug}): ${s.schemaDescription}`)
     .join('\n');
 
   const text = `# HotFab Welding
@@ -14,9 +19,7 @@ Phone: (248) 259-9956 | Email: hotfabwelding@gmail.com | Address: 13118 E 9 Mile
 
 ## Services
 
-- [Custom Metal Fabrication](https://www.hotfabwelding.com/services): Railings, gates, fences, balconies, staircases, metal furniture, sculptures, structural steel.
-- [Specialty Metal Solutions](https://www.hotfabwelding.com/services): Storm shields, flood barriers, security panels, prototypes, artistic installations.
-- [Mobile On-Site Welding](https://www.hotfabwelding.com/services): On-site repairs throughout Metro Detroit. Truck/trailer repair, emergency same-day service.
+${serviceList}
 
 ## Pages
 

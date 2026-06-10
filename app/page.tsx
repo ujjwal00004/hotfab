@@ -540,7 +540,7 @@ export default function HomePage() {
         </div>
 
         <div className="services-grid">
-          <a href="/services" className="service-card">
+          <a href="/services/custom-railings" className="service-card">
             <div className="service-num">01</div>
             <div className="service-name">Custom Fabrication</div>
             <p className="service-desc">
@@ -549,7 +549,7 @@ export default function HomePage() {
             <div className="service-link">Learn More <span className="service-arrow">→</span></div>
           </a>
 
-          <a href="/services" className="service-card">
+          <a href="/services/storm-shields" className="service-card">
             <div className="service-num">02</div>
             <div className="service-name">Specialty Solutions</div>
             <p className="service-desc">
@@ -558,7 +558,7 @@ export default function HomePage() {
             <div className="service-link">Learn More <span className="service-arrow">→</span></div>
           </a>
 
-          <a href="/services" className="service-card">
+          <a href="/services/mobile-welding" className="service-card">
             <div className="service-num">03</div>
             <div className="service-name">Mobile On-Site Welding</div>
             <p className="service-desc">
@@ -637,7 +637,7 @@ export default function HomePage() {
               <div className="proof-stars">
                 {[...Array(5)].map((_,i) => <span key={i} className="star">★</span>)}
               </div>
-              <div style={{fontSize:'13px', color:'var(--smoke)', letterSpacing:'1px'}}>5.0 · Google Reviews</div>
+              <div style={{fontSize:'13px', color:'var(--smoke)', letterSpacing:'1px'}}>Client Testimonials</div>
             </div>
           </div>
 

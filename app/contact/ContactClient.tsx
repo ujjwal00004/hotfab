@@ -212,7 +212,7 @@ export default function ContactClient() {
 
         <section className="cp-trust">
           <div className="cp-trust-inner">
-            {[{ num: '25+', label: 'Years Experience' }, { num: '2K+', label: 'Projects Completed' }, { num: '5★', label: 'Google Rating' }, { num: '1', label: 'Day Response Time' }].map((t, i) => (
+            {[{ num: '25+', label: 'Years Experience' }, { num: '2K+', label: 'Projects Completed' }, { num: 'Free', label: 'Estimates' }, { num: '1', label: 'Day Response Time' }].map((t, i) => (
               <div key={i} className="cp-trust-item">
                 <div className="cp-trust-num">{t.num.replace('★', '')}<span>{t.num.includes('★') ? '★' : ''}</span></div>
                 <div className="cp-trust-label">{t.label}</div>

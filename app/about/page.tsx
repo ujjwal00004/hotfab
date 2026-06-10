@@ -497,8 +497,8 @@ export default function AboutPage() {
                   <div className="ab-stat-label">Metal Types</div>
                 </div>
                 <div className="ab-stat">
-                  <div className="ab-stat-num">5<span>★</span></div>
-                  <div className="ab-stat-label">Google Rating</div>
+                  <div className="ab-stat-num">100<span>%</span></div>
+                  <div className="ab-stat-label">Family Owned</div>
                 </div>
               </div>
               <Link href="/contact" className="ab-panel-cta">

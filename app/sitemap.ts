@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import blogs from '@/data/blogs.json';
+import { serviceSlugs } from '@/data/services';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.hotfabwelding.com';
@@ -22,5 +23,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...blogPages];
+  // Auto-generated from data/services.ts — individual service landing pages
+  const servicePages: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
+    url: `${baseUrl}/services/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }));
+
+  return [...staticPages, ...servicePages, ...blogPages];
 }

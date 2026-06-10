@@ -112,39 +112,7 @@ export default function JsonLd() {
           }
         }
       ]
-    },
-    // GEO: Aggregate rating tells AI engines this is a real, trusted business
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "3",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    // GEO: Individual reviews help LLMs understand what real customers say
-    "review": [
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "David R." },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-        "reviewBody": "HotFab installed custom railings on our commercial property and the quality is outstanding. They showed up on time, communicated throughout, and the finished product is flawless. Highly recommend.",
-        "datePublished": "2024-01-15"
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Maria S." },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-        "reviewBody": "Called them for an emergency repair on a Saturday morning. They had a crew out within hours. Fast, professional, and the weld is solid. This is the only welding company I will ever call.",
-        "datePublished": "2024-03-08"
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Tom K." },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
-        "reviewBody": "We have used HotFab for three industrial projects now. Their precision on structural steel is second to none. Family-run but operates with the professionalism of a much larger outfit.",
-        "datePublished": "2024-06-20"
-      }
-    ]
+    }
   };
 
   // AEO: WebSite schema enables Google Sitelinks search box

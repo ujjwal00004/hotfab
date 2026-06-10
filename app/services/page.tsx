@@ -400,7 +400,7 @@ export default function ServicesPage() {
               </h1>
               <p className="sp-hero-sub">
                 25+ years of expert welding and custom metal fabrication. 
-                Serving Metro Detroit from our shop at 13118 E 9 Mile Rd, Warren, MI 48017.
+                Serving Metro Detroit from our shop at 13118 E 9 Mile Rd, Warren, MI 48089.
               </p>
             </div>
             <div className="sp-hero-stat">
@@ -499,7 +499,7 @@ export default function ServicesPage() {
               Ready to Start Your<br /><span>Project?</span>
             </h2>
             <p className="sp-cta-sub">
-              Located at 13118 E 9 Mile Rd, Warren, MI 48017.<br />
+              Located at 13118 E 9 Mile Rd, Warren, MI 48089.<br />
               Free estimates • Emergency service available • Serving all of Metro Detroit
             </p>
             <div className="sp-cta-actions" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -507,7 +507,7 @@ export default function ServicesPage() {
               <Link href="/contact" className="sp-btn-ghost">REQUEST FREE QUOTE →</Link>
             </div>
             <a href="tel:2482599956" className="sp-cta-phone">(248) 259-9956</a>
-            <p className="sp-cta-phone-note">13118 E 9 Mile Rd, Warren, MI 48017</p>
+            <p className="sp-cta-phone-note">13118 E 9 Mile Rd, Warren, MI 48089</p>
           </div>
         </section>
 

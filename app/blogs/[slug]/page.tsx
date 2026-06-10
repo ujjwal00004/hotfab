@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { serviceForBlog } from '@/data/services';
 
 async function getBlog(slug: string) {
   const res = await import('@/data/blogs.json');
@@ -364,6 +365,41 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               className="bp-prose"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
+
+            {/* ── RELATED SERVICE CTA (internal link to service page) ── */}
+            {(() => {
+              const svc = serviceForBlog(blog.slug);
+              const href = svc ? `/services/${svc.slug}` : '/services';
+              const heading = svc ? svc.serviceName : 'Custom Welding & Metal Fabrication';
+              const cta = svc ? `View ${svc.serviceName}` : 'Explore Our Services';
+              return (
+                <aside
+                  style={{
+                    margin: '48px 0 8px', padding: '32px 32px 34px',
+                    background: '#1A1A1A', border: '1px solid #2C2C2C',
+                    borderLeft: '4px solid #C8410A',
+                  }}
+                >
+                  <div style={{ fontSize: 12, letterSpacing: 2, textTransform: 'uppercase', color: '#C8410A', fontWeight: 600, marginBottom: 10 }}>
+                    Need this done in Metro Detroit?
+                  </div>
+                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 30, letterSpacing: 0.5, color: '#F5F3EF', lineHeight: 1.05, marginBottom: 10 }}>
+                    {heading}
+                  </div>
+                  <p style={{ fontSize: 15, lineHeight: 1.7, color: '#A0A0A0', fontWeight: 300, margin: '0 0 22px', maxWidth: '60ch' }}>
+                    HotFab Welding designs, fabricates, and installs across Warren and Metro Detroit — family-owned, 25+ years. Get a free, no-obligation quote.
+                  </p>
+                  <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
+                    <Link href={href} style={{ background: '#C8410A', color: '#F5F3EF', padding: '14px 32px', fontSize: 12, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', textDecoration: 'none' }}>
+                      {cta} →
+                    </Link>
+                    <a href="tel:2482599956" style={{ color: '#F5F3EF', fontSize: 12, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', textDecoration: 'none' }}>
+                      Call (248) 259-9956
+                    </a>
+                  </div>
+                </aside>
+              );
+            })()}
 
             {/* Back link */}
             <a href="/blogs" className="bp-back">
