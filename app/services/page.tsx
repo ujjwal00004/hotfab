@@ -416,7 +416,7 @@ export default function ServicesPage() {
             {services.map((svc, i) => {
               const images = [
                 'https://res.cloudinary.com/dty0qurl9/image/upload/v1777365279/ornamental-balcony-railing-michigan.jpg',
-                '',
+                'https://res.cloudinary.com/dty0qurl9/image/upload/v1781094143/custom-steel-exterior-staircase-railing-warren-mi_dlaqj7.jpg',
                 'https://images.unsplash.com/photo-1581092160607-ee22731c9c39?w=900&q=80',
               ];
               return (
