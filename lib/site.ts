@@ -49,7 +49,10 @@ export const SITE = {
   /** "Leave a review" link from Google Business Profile (https://g.page/r/.../review). Empty = not rendered. */
   reviewUrl: '',
   /** Public social / directory profiles. Add real URLs here (Google Business Profile, Facebook, Instagram, Yelp…). */
-  sameAs: [] as string[],
+    sameAs: [
+    'https://www.instagram.com/hotfabllc/',
+    'https://www.facebook.com/Hotfab/',
+  ] as string[],
   /** Slug of the blog post with published price ranges — linked from every service page. */
   pricingGuideSlug: 'welding-cost-guide-michigan-2026',
   ogImage: {
