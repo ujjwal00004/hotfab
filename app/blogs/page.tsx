@@ -1,31 +1,35 @@
 import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Welding & Metal Fabrication Blog | Tips & Guides Warren, MI',
-  description: 'Expert welding tips, guides, and project insights from HotFab Welding in Warren, Michigan. Learn about metal fabrication, on-site welding, railings, and more.',
-  alternates: { canonical: 'https://www.hotfabwelding.com/blogs' },
-  openGraph: {
-    title: 'Welding Blog | HotFab Welding Warren, MI',
-    description: 'Welding tips, fabrication guides, and project insights from Metro Detroit\'s trusted family welders.',
-    url: 'https://www.hotfabwelding.com/blogs',
-  },
-};
-
-import BlogCard from '@/components/BlogCard';
+import Image from 'next/image';
 import Link from 'next/link';
+import BlogCard from '@/components/BlogCard';
+import JsonLd from '@/components/seo/JsonLd';
+import Breadcrumbs from '@/components/seo/Breadcrumbs';
+import { blogSchema, webPageSchema } from '@/lib/schema';
+import { buildMetadata } from '@/lib/seo';
+import { blogs } from '@/data/blogs';
+import { services } from '@/data/services';
 
-async function getBlogs() {
-  const res = await import('@/data/blogs.json');
-  return res.default;
-}
+const DESCRIPTION =
+  'Expert welding tips, guides, and project insights from HotFab Welding in Warren, Michigan. Learn about metal fabrication, on-site welding, railings, gates, and more.';
 
-export default async function BlogsPage() {
-  const blogs = await getBlogs();
+export const metadata: Metadata = buildMetadata({
+  title: 'Welding & Metal Fabrication Blog | Tips & Guides Warren, MI',
+  description: DESCRIPTION,
+  path: '/blogs',
+  ogTitle: 'Welding Blog | HotFab Welding Warren, MI',
+  ogDescription: "Welding tips, fabrication guides, and project insights from Metro Detroit's trusted family welders.",
+});
 
+export default function BlogsPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          webPageSchema({ path: '/blogs', name: 'HotFab Welding Blog', description: DESCRIPTION, type: 'CollectionPage' }),
+          blogSchema(blogs.map((b) => ({ slug: b.slug, title: b.title, date: b.date }))),
+        ]}
+      />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
 
         :root {
           --forge: #C8410A;
@@ -70,6 +74,7 @@ export default async function BlogsPage() {
           pointer-events: none;
         }
 
+        .bl-hero .hf-crumbs-inline { position:relative; z-index:2; max-width:1100px; margin:0 auto; }
         .bl-hero-inner {
           max-width: 1100px; margin: 0 auto;
           position: relative; z-index: 2;
@@ -314,6 +319,7 @@ export default async function BlogsPage() {
           <div className="bl-hero-line" />
           <div className="bl-hero-grid" />
           <div className="bl-hero-glow" />
+          <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blogs' }]} className="hf-crumbs hf-crumbs-inline" />
           <div className="bl-hero-inner">
             <div>
               <div className="bl-hero-tag">Knowledge from the Shop Floor</div>
@@ -339,7 +345,7 @@ export default async function BlogsPage() {
                 <div className="bl-featured-label">Featured Article</div>
                 <Link href={`/blogs/${blogs[0].slug}`} className="bl-featured-card">
                   <div className="bl-featured-img">
-                    <img src={blogs[0].image} alt={blogs[0].title} style={{position:'absolute',inset:0,width:'100%',height:'100%'}} />
+                    <Image src={blogs[0].image} alt={blogs[0].title} fill sizes="(max-width: 900px) 100vw, 50vw" style={{ objectFit: 'cover' }} priority />
                     <div className="bl-featured-img-overlay" />
                   </div>
                   <div className="bl-featured-content">
@@ -366,7 +372,7 @@ export default async function BlogsPage() {
                     <span className="bl-grid-count">{blogs.length - 1} more {blogs.length - 1 === 1 ? 'post' : 'posts'}</span>
                   </div>
                   <div className="bl-grid">
-                    {blogs.slice(1).map((blog: any) => (
+                    {blogs.slice(1).map((blog) => (
                       <BlogCard key={blog.id} blog={blog} />
                     ))}
                   </div>
@@ -380,11 +386,27 @@ export default async function BlogsPage() {
               <div className="bl-empty">
                 <div className="bl-empty-icon">✦</div>
                 <div className="bl-empty-title">No Posts Yet</div>
-                <p className="bl-empty-sub">We're forging new articles. Check back soon.</p>
+                <p className="bl-empty-sub">We&apos;re forging new articles. Check back soon.</p>
               </div>
             </div>
           </section>
         )}
+
+        {/* ── SERVICE LINKS (internal linking from blog hub to money pages) ── */}
+        <section className="bl-grid-section" aria-labelledby="bl-services-heading">
+          <div className="bl-grid-inner">
+            <div className="bl-grid-header">
+              <h2 id="bl-services-heading" className="bl-grid-label" style={{ margin: 0 }}>Services these guides cover</h2>
+            </div>
+            <ul className="hf-areas">
+              {services.map((s) => (
+                <li key={s.slug}><Link href={`/services/${s.slug}`}>{s.serviceName}</Link></li>
+              ))}
+              <li><Link href="/welding">Service areas</Link></li>
+              <li><Link href="/faq">FAQ</Link></li>
+            </ul>
+          </div>
+        </section>
 
         {/* ── CTA STRIP ── */}
         <div className="bl-cta-strip">

@@ -1,42 +1,68 @@
 import { NextResponse } from 'next/server';
-import blogs from '@/data/blogs.json';
+import { SITE, absoluteUrl } from '@/lib/site';
+import { blogs } from '@/data/blogs';
 import { services } from '@/data/services';
+import { locations } from '@/data/locations';
 
-export async function GET() {
-  const blogList = (blogs as any[])
-    .map((b) => `- [${b.title}](https://www.hotfabwelding.com/blogs/${b.slug})`)
-    .join('\n');
+// /llms.txt — concise, machine-readable overview of the site for AI assistants
+// and crawlers (llmstxt.org convention). Generated from the same data files
+// that power the pages, so it never drifts from what the site actually says.
+export const dynamic = 'force-static';
 
+export function GET() {
   const serviceList = services
-    .map((s) => `- [${s.serviceName}](https://www.hotfabwelding.com/services/${s.slug}): ${s.schemaDescription}`)
+    .map((s) => `- [${s.serviceName}](${absoluteUrl(`/services/${s.slug}`)}): ${s.schemaDescription}`)
     .join('\n');
 
-  const text = `# HotFab Welding
+  const areaList = locations
+    .map((l) => `- [${l.city}, MI (${l.county})](${absoluteUrl(`/welding/${l.slug}`)})`)
+    .join('\n');
 
-> Family-owned welding and custom metal fabrication in Warren, Michigan. Founded 1999. Serving Metro Detroit for 25+ years.
+  const blogList = blogs
+    .map((b) => `- [${b.title}](${absoluteUrl(`/blogs/${b.slug}`)}) — ${b.excerpt}`)
+    .join('\n');
 
-Phone: (248) 259-9956 | Email: hotfabwelding@gmail.com | Address: 13118 E 9 Mile Rd, Warren, MI 48089
+  const hours = SITE.hours.map((h) => h.label).join(', ');
+
+  const text = `# ${SITE.name}
+
+> ${SITE.description}
+
+- Website: ${SITE.url}
+- Phone: ${SITE.phone.display}
+- Email: ${SITE.email}
+- Address: ${SITE.address.full}
+- Hours: ${hours}
+- Founded: ${SITE.foundingYear} (family-owned)
+- Primary service area: ${SITE.serviceArea.primary}; ${SITE.serviceArea.region} (${SITE.serviceArea.counties.join(', ')})
+- Materials: carbon steel, stainless steel, aluminum, mild steel
+- Free, no-obligation quotes: ${absoluteUrl('/contact')}
 
 ## Services
 
 ${serviceList}
 
-## Pages
+## Service areas
 
-- [Home](https://www.hotfabwelding.com/)
-- [Services](https://www.hotfabwelding.com/services)
-- [About](https://www.hotfabwelding.com/about)
-- [Gallery](https://www.hotfabwelding.com/gallery)
-- [FAQ](https://www.hotfabwelding.com/faq)
-- [Contact](https://www.hotfabwelding.com/contact)
-- [Blog](https://www.hotfabwelding.com/blogs)
+${areaList}
+- [All service areas](${absoluteUrl('/welding')})
 
-## Blog Posts
+## Company
+
+- [About ${SITE.name}](${absoluteUrl('/about')})
+- [Contact / request a quote](${absoluteUrl('/contact')})
+- [Project gallery](${absoluteUrl('/gallery')})
+- [Frequently asked questions](${absoluteUrl('/faq')})
+
+## Blog
 
 ${blogList}
+
+## Optional
+
+- [Full-text reference for AI systems](${absoluteUrl('/llms-full.txt')})
+- [Sitemap](${absoluteUrl('/sitemap.xml')})
 `;
 
-  return new NextResponse(text, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-  });
+  return new NextResponse(text, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }

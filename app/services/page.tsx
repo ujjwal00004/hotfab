@@ -1,21 +1,23 @@
 import type { Metadata } from 'next';
-import FaqSchema from '@/components/FaqSchema';
-
-
-export const metadata: Metadata = {
-  title: 'Welding & Metal Fabrication Services in Warren, MI',
-  description: 'Custom metal fabrication, specialty solutions, and mobile on-site welding in Warren, Michigan. Railings, gates, fences, staircases, storm shields, and emergency repairs. Serving Metro Detroit.',
-  alternates: { canonical: 'https://www.hotfabwelding.com/services' },
-  openGraph: {
-    title: 'Welding & Fabrication Services | HotFab Welding Warren, MI',
-    description: 'Custom railings, gates, mobile welding and more. Family-owned, 25+ years experience. Free quotes for Warren MI and Metro Detroit.',
-    url: 'https://www.hotfabwelding.com/services',
-  },
-};
-
-import Image from 'next/image';
 import Link from 'next/link';
+import JsonLd from '@/components/seo/JsonLd';
+import Breadcrumbs from '@/components/seo/Breadcrumbs';
+import ServiceAreaLinks from '@/components/ServiceAreaLinks';
+import { faqSchema, webPageSchema } from '@/lib/schema';
+import { buildMetadata } from '@/lib/seo';
+import { SITE, absoluteUrl } from '@/lib/site';
+import { services as servicePages } from '@/data/services';
 
+const DESCRIPTION =
+  'Custom metal fabrication, specialty solutions, and mobile on-site welding in Warren, Michigan. Railings, gates, fences, staircases, structural steel, storm shields, and emergency repairs. Serving Metro Detroit.';
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Welding & Metal Fabrication Services in Warren, MI',
+  description: DESCRIPTION,
+  path: '/services',
+  ogTitle: 'Welding & Fabrication Services | HotFab Welding Warren, MI',
+  ogDescription: 'Custom railings, gates, mobile welding and more. Family-owned, 25+ years experience. Free quotes for Warren MI and Metro Detroit.',
+});
 
 const serviceFaqs = [
   {
@@ -96,9 +98,24 @@ export default function ServicesPage() {
 
   return (
     <>
-      <FaqSchema faqs={serviceFaqs} />
+      <JsonLd
+        data={[
+          webPageSchema({ path: '/services', name: 'Welding & Metal Fabrication Services in Warren, MI', description: DESCRIPTION, type: 'CollectionPage' }),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'HotFab Welding services',
+            itemListElement: servicePages.map((s, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              name: s.serviceName,
+              url: absoluteUrl(`/services/${s.slug}`),
+            })),
+          },
+          faqSchema(serviceFaqs),
+        ]}
+      />
       <style >{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
 
         :root {
           --forge: #C8410A;
@@ -140,6 +157,7 @@ export default function ServicesPage() {
           position: absolute; top: 0; left: 0; right: 0; height: 1px;
           background: linear-gradient(to right, transparent, var(--forge), transparent);
         }
+        .sp-crumbs { position:relative; z-index:1; max-width:1100px; margin:0 auto; }
         .sp-hero-inner {
           max-width: 1100px; margin: 0 auto;
           position: relative; z-index: 1;
@@ -258,6 +276,20 @@ export default function ServicesPage() {
           background: var(--forge); flex-shrink: 0;
         }
 
+        /* SERVICE PAGES GRID */
+        .sp-pages { background: var(--iron); padding: 0 48px 110px; }
+        .sp-pages-inner { max-width: 1100px; margin: 0 auto; }
+        .sp-pages-lead { font-size: 15px; color: var(--smoke); line-height: 1.8; font-weight: 300; max-width: 62ch; margin: 14px 0 36px; }
+        .sp-pages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--slag); }
+        .sp-page-card { background: var(--steel); padding: 30px 26px; text-decoration: none; display: flex; flex-direction: column; gap: 10px; transition: background .25s; border-left: 2px solid transparent; }
+        .sp-page-card:hover { background: #202020; border-left-color: var(--forge); }
+        .sp-page-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: .5px; color: var(--white); line-height: 1.05; }
+        .sp-page-desc { font-size: 13px; line-height: 1.6; color: var(--smoke); font-weight: 300; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .sp-page-link { margin-top: auto; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--forge); font-weight: 600; }
+        .sp-pages-areas { margin-top: 56px; }
+        .sp-pages-areas-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 1px; color: var(--white); margin: 0; }
+        @media (max-width: 900px) { .sp-pages { padding: 0 24px 80px; } .sp-pages-grid { grid-template-columns: 1fr; } }
+
         /* MATERIALS */
         .sp-materials {
           background: var(--steel); 
@@ -323,6 +355,9 @@ export default function ServicesPage() {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 20px; color: var(--forge);
         }
+
+        .sp-process-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; color: var(--white); margin: 0 0 10px; }
+        .sp-process-desc { font-size: 14px; color: var(--smoke); line-height: 1.7; font-weight: 300; margin: 0; }
 
         /* CTA */
         .sp-cta {
@@ -392,6 +427,7 @@ export default function ServicesPage() {
         <section className="sp-hero">
           <div className="sp-hero-grid" />
           <div className="sp-hero-line" />
+          <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }]} className="hf-crumbs hf-crumbs-inline sp-crumbs" />
           <div className="sp-hero-inner">
             <div>
               <div className="sp-hero-tag">WELDING SERVICES IN WARREN, MI</div>
@@ -448,6 +484,33 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* DEDICATED SERVICE PAGES (internal links to every /services/<slug>) */}
+        <section className="sp-pages">
+          <div className="sp-pages-inner">
+            <span className="sp-section-tag">SERVICE GUIDES</span>
+            <h2 className="sp-section-title">Explore Each Service</h2>
+            <p className="sp-pages-lead">
+              Each service below has its own page with materials, code requirements, process, pricing factors, and FAQs.
+            </p>
+            <div className="sp-pages-grid">
+              {servicePages.map((s) => (
+                <Link key={s.slug} href={`/services/${s.slug}`} className="sp-page-card">
+                  <span className="sp-page-name">{s.serviceName}</span>
+                  <span className="sp-page-desc">{s.heroSub}</span>
+                  <span className="sp-page-link">{s.h1} →</span>
+                </Link>
+              ))}
+            </div>
+            <div className="sp-pages-areas">
+              <h3 className="sp-pages-areas-title">Service areas</h3>
+              <p className="sp-pages-lead">
+                Based at {SITE.address.full}. Fabrication in our shop, installation and mobile welding on-site across {SITE.serviceArea.region}:
+              </p>
+              <ServiceAreaLinks />
+            </div>
+          </div>
+        </section>
+
         {/* MATERIALS */}
         <section className="sp-materials">
           <div className="sp-materials-inner">
@@ -484,7 +547,7 @@ export default function ServicesPage() {
               {process.map((p, i) => (
                 <div key={i} className="sp-process-step">
                   <div className="sp-process-circle">{p.step}</div>
-                  <div className="sp-process-title">{p.title}</div>
+                  <h3 className="sp-process-title">{p.title}</h3>
                   <p className="sp-process-desc">{p.desc}</p>
                 </div>
               ))}

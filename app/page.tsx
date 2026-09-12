@@ -1,11 +1,30 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import JsonLd from '@/components/seo/JsonLd';
+import ServiceAreaLinks from '@/components/ServiceAreaLinks';
+import { webPageSchema } from '@/lib/schema';
+import { buildMetadata } from '@/lib/seo';
+import { SITE } from '@/lib/site';
+import { services } from '@/data/services';
+import { blogs } from '@/data/blogs';
+
+export const metadata: Metadata = buildMetadata({
+  title: `${SITE.name} | ${SITE.tagline}`,
+  absoluteTitle: true,
+  description:
+    'Family-owned welding company in Warren, Michigan. 25+ years experience in custom railings, gates, fences, staircases, structural steel, storm shields, and mobile on-site welding across Metro Detroit. Free quotes. Call (248) 259-9956.',
+  path: '/',
+  ogTitle: `${SITE.name} — Warren, Michigan`,
+  ogDescription: 'Expert custom metal fabrication and on-site welding services in Warren, MI. Family-owned since 1999. Call (248) 259-9956 for a free quote.',
+});
 
 export default function HomePage() {
+  const latestPosts = blogs.slice(0, 3);
   return (
     <>
+      <JsonLd data={webPageSchema({ path: '/', name: `${SITE.name} | ${SITE.tagline}`, description: SITE.description, image: SITE.ogImage.url })} />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
 
         :root {
           --forge: #C8410A;
@@ -235,7 +254,7 @@ export default function HomePage() {
         }
         .service-card:hover .service-num { color: rgba(200,65,10,0.3); }
 
-        .service-name {
+        .service-name { margin:0;
           font-family: 'Bebas Neue', sans-serif;
           font-size: 30px; letter-spacing: 1px;
           color: var(--white); margin-bottom: 16px;
@@ -315,7 +334,7 @@ export default function HomePage() {
           display: flex; align-items: center; justify-content: center;
           color: var(--forge); font-size: 18px;
         }
-        .why-item-title {
+        .why-item-title { margin:0;
           font-weight: 600; font-size: 17px; color: var(--white); margin-bottom: 6px;
         }
         .why-item-desc { font-size: 14px; color: var(--smoke); line-height: 1.6; font-weight: 300; }
@@ -444,19 +463,20 @@ export default function HomePage() {
           .footer-links { flex-wrap: wrap; justify-content: center; }
           .services-section, .why-section, .proof-section, .stats-section, .cta-section { padding-left: 24px; padding-right: 24px; }
         }
+        .hub-section { background: var(--steel); padding: 100px 48px; border-top: 1px solid var(--slag); }
+        .hub-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; }
+        .hub-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px,4vw,52px); line-height: 1; color: var(--white); margin: 10px 0 16px; }
+        .hub-lead { font-size: 15px; line-height: 1.8; color: var(--smoke); font-weight: 300; margin: 0 0 24px; }
+        .hub-list { list-style: none; padding: 0; margin: 0 0 24px; }
+        .hub-list li { padding: 14px 0; border-bottom: 1px solid var(--slag); display: flex; flex-direction: column; gap: 4px; }
+        .hub-list li a { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: .5px; color: var(--white); text-decoration: none; transition: color .2s; }
+        .hub-list li a:hover { color: var(--forge); }
+        .hub-list li span { font-size: 13px; line-height: 1.6; color: var(--smoke); font-weight: 300; }
+        .hub-list-compact li a { font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 500; letter-spacing: 0; }
+        @media (max-width: 900px) { .hub-section { padding: 70px 24px; } .hub-inner { grid-template-columns: 1fr; gap: 44px; } }
       `}</style>
 
       {/* NAV */}
-      {/* <nav className="nav">
-        <a href="/" className="nav-logo">Hot<span>Fab</span></a>
-        <ul className="nav-links">
-          <li><a href="/services">Services</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-        <a href="tel:2482599956" className="nav-cta">Call Now</a>
-      </nav> */}
 
       {/* HERO */}
       <section className="hero">
@@ -474,12 +494,12 @@ export default function HomePage() {
           </h1>
 
           <p className="hero-sub">
-            Michigan's trusted family welders — delivering precision fabrication,
+            Michigan&apos;s trusted family welders — delivering precision fabrication,
             custom metalwork, and on-site repairs for over 25 years.
           </p>
 
           <div className="hero-actions">
-            <a href="/services" className="btn-primary">Explore Services</a>
+            <Link href="/services" className="btn-primary">Explore Services</Link>
             <a href="tel:2482599956" className="btn-ghost">Call (248) 259-9956</a>
           </div>
         </div>
@@ -540,32 +560,32 @@ export default function HomePage() {
         </div>
 
         <div className="services-grid">
-          <a href="/services/custom-railings" className="service-card">
+          <Link href="/services/custom-railings" className="service-card">
             <div className="service-num">01</div>
-            <div className="service-name">Custom Fabrication</div>
+            <h3 className="service-name">Custom Fabrication</h3>
             <p className="service-desc">
               Railings, gates, fences, grates, structural steel, and decorative metalwork designed and built to your exact spec.
             </p>
             <div className="service-link">Learn More <span className="service-arrow">→</span></div>
-          </a>
+          </Link>
 
-          <a href="/services/storm-shields" className="service-card">
+          <Link href="/services/storm-shields" className="service-card">
             <div className="service-num">02</div>
-            <div className="service-name">Specialty Solutions</div>
+            <h3 className="service-name">Specialty Solutions</h3>
             <p className="service-desc">
               Storm shields, security panels, prototypes, and artistic metal installations built for unique challenges.
             </p>
             <div className="service-link">Learn More <span className="service-arrow">→</span></div>
-          </a>
+          </Link>
 
-          <a href="/services/mobile-welding" className="service-card">
+          <Link href="/services/mobile-welding" className="service-card">
             <div className="service-num">03</div>
-            <div className="service-name">Mobile On-Site Welding</div>
+            <h3 className="service-name">Mobile On-Site Welding</h3>
             <p className="service-desc">
               We bring the shop to you. Full mobile welding team for repairs and installations at your location across Michigan.
             </p>
             <div className="service-link">Learn More <span className="service-arrow">→</span></div>
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -575,9 +595,13 @@ export default function HomePage() {
         <div className="why-inner">
           <div className="why-image-wrap">
             <div className="why-image-frame">
-              <img
+              <Image
                 src="https://res.cloudinary.com/dty0qurl9/image/upload/v1777365279/ornamental-balcony-railing-michigan.jpg"
-                alt="HotFab Welding professional welder fabricating custom metalwork in Warren, Michigan"
+                alt="Ornamental steel balcony railing fabricated and installed by HotFab Welding in Michigan"
+                width={800}
+                height={1000}
+                sizes="(max-width: 900px) 100vw, 45vw"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
             <div className="why-badge">
@@ -589,32 +613,32 @@ export default function HomePage() {
           <div>
             <span className="section-tag">Why Choose Us</span>
             <h2 style={{fontFamily:'Bebas Neue, sans-serif', fontSize:'clamp(44px,5vw,68px)', lineHeight:1, color:'var(--white)', marginBottom:'16px', marginTop:'12px'}}>
-              Michigan's Most<br/>
+              Michigan&apos;s Most<br/>
               <span style={{color:'var(--forge)'}}>Trusted Welders</span>
             </h2>
             <p style={{fontSize:'15px', color:'var(--smoke)', lineHeight:'1.8', fontWeight:300, marginBottom:'8px'}}>
-              Family-owned since 1999, we've built our reputation one weld at a time — with quality, reliability, and personal service on every job.
+              Family-owned since 1999, we&apos;ve built our reputation one weld at a time — with quality, reliability, and personal service on every job.
             </p>
 
             <ul className="why-list">
               <li className="why-item">
                 <div className="why-icon">👨‍👩‍👧‍👦</div>
                 <div>
-                  <div className="why-item-title">Family Owned & Operated</div>
+                  <h3 className="why-item-title">Family Owned & Operated</h3>
                   <div className="why-item-desc">Over 25 years of dedicated service with personal attention on every single project, big or small.</div>
                 </div>
               </li>
               <li className="why-item">
                 <div className="why-icon">🔨</div>
                 <div>
-                  <div className="why-item-title">Certified Welding Expertise</div>
+                  <h3 className="why-item-title">Certified Welding Expertise</h3>
                   <div className="why-item-desc">Skilled in steel, stainless steel, and aluminum — with the precision and experience your project deserves.</div>
                 </div>
               </li>
               <li className="why-item">
                 <div className="why-icon">🚀</div>
                 <div>
-                  <div className="why-item-title">Fast Turnaround, Zero Compromise</div>
+                  <h3 className="why-item-title">Fast Turnaround, Zero Compromise</h3>
                   <div className="why-item-desc">From emergency repairs to large custom fabrications — delivered on time and built to last.</div>
                 </div>
               </li>
@@ -651,11 +675,49 @@ export default function HomePage() {
                 <div className="review-stars">
                   {[...Array(5)].map((_,j) => <span key={j} style={{color:'var(--forge)', fontSize:'14px'}}>★</span>)}
                 </div>
-                <p className="review-text">"{r.text}"</p>
+                <p className="review-text">&ldquo;{r.text}&rdquo;</p>
                 <div className="review-author">{r.author}</div>
                 <div className="review-role">{r.role}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ALL SERVICES + SERVICE AREAS + LATEST GUIDES (crawlable internal links) */}
+      <section className="hub-section" aria-labelledby="hub-services">
+        <div className="hub-inner">
+          <div className="hub-col">
+            <span className="section-tag">Every Service</span>
+            <h2 id="hub-services" className="hub-title">What HotFab Welding builds</h2>
+            <p className="hub-lead">
+              Fabricated at our shop at {SITE.address.full} and installed on-site across Metro Detroit. Each service has a detailed guide:
+            </p>
+            <ul className="hub-list">
+              {services.map((svc) => (
+                <li key={svc.slug}>
+                  <Link href={`/services/${svc.slug}`}>{svc.serviceName}</Link>
+                  <span>{svc.heroSub}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="hub-col">
+            <span className="section-tag">Service Areas</span>
+            <h2 className="hub-title">Where we work</h2>
+            <p className="hub-lead">
+              Based in {SITE.serviceArea.primary}, serving {SITE.serviceArea.counties.join(', ')} with shop fabrication and mobile on-site welding.
+            </p>
+            <ServiceAreaLinks />
+            <span className="section-tag" style={{ marginTop: 48 }}>From the Blog</span>
+            <h2 className="hub-title">Latest guides</h2>
+            <ul className="hub-list hub-list-compact">
+              {latestPosts.map((b) => (
+                <li key={b.slug}><Link href={`/blogs/${b.slug}`}>{b.title}</Link></li>
+              ))}
+              <li><Link href="/blogs">All welding &amp; fabrication articles →</Link></li>
+              <li><Link href="/faq">Frequently asked questions →</Link></li>
+            </ul>
           </div>
         </div>
       </section>
@@ -671,25 +733,12 @@ export default function HomePage() {
           </p>
           <div className="cta-actions">
             <a href="tel:2482599956" className="btn-forge">☎ Call Us Now</a>
-            <a href="/contact" className="btn-outline">Request a Quote →</a>
+            <Link href="/contact" className="btn-outline">Request a Quote →</Link>
           </div>
           <a href="tel:2482599956" className="cta-phone">(248) 259-9956</a>
           <span className="cta-phone-label">Available Mon–Sat · Free Estimates</span>
         </div>
       </section>
-
-      {/* FOOTER */}
-      {/* <footer className="footer">
-        <div className="footer-logo">Hot<span>Fab</span> Welding</div>
-        <div className="footer-copy">© 2024 HotFab Welding · Warren, Michigan · All Rights Reserved</div>
-        <div className="footer-links">
-          <a href="/services">Services</a>
-          <a href="/gallery">Gallery</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-          <a href="tel:2482599956">(248) 259-9956</a>
-        </div>
-      </footer> */}
     </>
   );
 }

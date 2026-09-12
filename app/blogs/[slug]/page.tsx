@@ -1,67 +1,66 @@
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import JsonLd from '@/components/seo/JsonLd';
+import Breadcrumbs from '@/components/seo/Breadcrumbs';
+import { articleSchema } from '@/lib/schema';
+import { buildMetadata } from '@/lib/seo';
+import { blogs, getBlog, blogPlainText, type Blog } from '@/data/blogs';
 import { serviceForBlog } from '@/data/services';
 
-async function getBlog(slug: string) {
-  const res = await import('@/data/blogs.json');
-  const blogs = res.default as any[];
-  return blogs.find((b: any) => b.slug.toLowerCase() === slug.toLowerCase());
+// Prerender every article at build time (was dynamic per-request before).
+export function generateStaticParams() {
+  return blogs.map((b) => ({ slug: b.slug }));
 }
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const blog = await getBlog(slug);
-
-  if (!blog) {
-    return { title: 'Blog Post Not Found' };
-  }
-
-  return {
+  const blog = getBlog(slug);
+  if (!blog) return { title: 'Blog Post Not Found', robots: { index: false, follow: true } };
+  return buildMetadata({
     title: blog.title,
     description: blog.excerpt,
-    alternates: {
-      canonical: `https://www.hotfabwelding.com/blogs/${blog.slug}`,
-    },
-    openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      url: `https://www.hotfabwelding.com/blogs/${blog.slug}`,
-      type: 'article',
-      publishedTime: blog.date,
-      images: blog.image ? [{ url: blog.image, alt: blog.title }] : [],
-    },
-  };
+    path: `/blogs/${blog.slug}`,
+    type: 'article',
+    publishedTime: blog.date,
+    image: blog.image || undefined,
+    imageAlt: blog.title,
+  });
 }
 
-async function getRelated(slug: string) {
-  const res = await import('@/data/blogs.json');
-  const blogs = res.default as any[];
-
-  return blogs.filter(
-    (b: any) => b.slug.toLowerCase() !== slug.toLowerCase()
-  ).slice(0, 2);
+/** Related posts: same service topic first, then most recent, never the current post. */
+function getRelated(current: Blog, count = 2): Blog[] {
+  const svc = serviceForBlog(current.slug);
+  const others = blogs.filter((b) => b.slug !== current.slug);
+  const sameTopic = svc ? others.filter((b) => serviceForBlog(b.slug)?.slug === svc.slug) : [];
+  const rest = others.filter((b) => !sameTopic.includes(b));
+  return [...sameTopic, ...rest].slice(0, count);
 }
+
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-
-  const blog = await getBlog(slug);
+  const blog = getBlog(slug);
   if (!blog) notFound();
 
-  const related = await getRelated(slug);
-
-  const formatted = new Date(blog.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const related = getRelated(blog);
+  const svc = serviceForBlog(blog.slug);
+  const formatted = new Date(blog.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const wordCount = blogPlainText(blog).split(' ').length;
 
   return (
     <>
+      <JsonLd
+        data={articleSchema({
+          slug: blog.slug,
+          title: blog.title,
+          description: blog.excerpt,
+          datePublished: blog.date,
+          image: blog.image || undefined,
+          wordCount,
+        })}
+      />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
 
         :root {
           --forge: #C8410A;
@@ -130,6 +129,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         }
         .bp-hero-date::before { content: ''; width: 24px; height: 1px; background: var(--forge); display: block; }
 
+        .bp-hero-excerpt { font-size:17px; line-height:1.7; color:var(--ash); font-weight:300; max-width:64ch; margin-top:22px; }
+        .bp-crumbs-srlike { position:absolute; top:0; left:0; right:0; z-index:3; max-width:860px; margin:0 auto; padding:110px 48px 0;
+          font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--smoke); }
+        .bp-crumbs-srlike .hf-crumbs-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:0 10px; }
+        .bp-crumbs-srlike .hf-crumbs-item { display:inline-flex; gap:10px; align-items:center; }
+        .bp-crumbs-srlike a { color:var(--smoke); text-decoration:none; }
+        .bp-crumbs-srlike a:hover { color:var(--forge); }
+        .bp-crumbs-srlike .hf-crumbs-current { color:var(--ash); max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .bp-crumbs-srlike .hf-crumbs-sep { color:var(--slag); }
+        @media (max-width:768px) { .bp-crumbs-srlike { padding:100px 24px 0; } }
         .bp-hero-title {
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(52px, 7vw, 96px);
@@ -245,7 +254,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           border-top: 1px solid var(--slag);
         }
         .bp-related-inner { max-width: 860px; margin: 0 auto; }
-        .bp-related-label {
+        .bp-related-label { margin:0; font-family:'Barlow',sans-serif;
           font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
           color: var(--forge); margin-bottom: 40px;
           display: flex; align-items: center; gap: 12px;
@@ -333,7 +342,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <div className="bp-wrap">
 
         {/* ── HERO ── */}
+        <article className="bp-wrap-article">
         <section className="bp-hero">
+          <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blogs' }, { name: blog.title, path: `/blogs/${blog.slug}` }]} className="bp-crumbs-srlike" />
           <div
             className="bp-hero-bg"
             style={{ backgroundImage: `url('${blog.image}')` }}
@@ -343,17 +354,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="bp-hero-grain" />
 
           <div className="bp-hero-inner">
-            <div className="bp-hero-breadcrumb">
-              <a href="/">Home</a>
-              <span>/</span>
-              <a href="/blogs">Blog</a>
-              <span>/</span>
-              <span style={{color:'var(--ash)', maxWidth:'260px', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>
-                {blog.title}
-              </span>
-            </div>
-            <div className="bp-hero-date">{formatted}</div>
+            <div className="bp-hero-date"><time dateTime={blog.date}>{formatted}</time> · By HotFab Welding</div>
             <h1 className="bp-hero-title">{blog.title}</h1>
+            <p className="bp-hero-excerpt">{blog.excerpt}</p>
           </div>
         </section>
 
@@ -368,7 +371,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
             {/* ── RELATED SERVICE CTA (internal link to service page) ── */}
             {(() => {
-              const svc = serviceForBlog(blog.slug);
               const href = svc ? `/services/${svc.slug}` : '/services';
               const heading = svc ? svc.serviceName : 'Custom Welding & Metal Fabrication';
               const cta = svc ? `View ${svc.serviceName}` : 'Explore Our Services';
@@ -402,25 +404,26 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             })()}
 
             {/* Back link */}
-            <a href="/blogs" className="bp-back">
+            <Link href="/blogs" className="bp-back">
               <span className="bp-back-arrow">←</span>
               Back to All Articles
-            </a>
+            </Link>
           </div>
         </div>
+        </article>
 
         {/* ── RELATED POSTS ── */}
         {related.length > 0 && (
           <section className="bp-related">
             <div className="bp-related-inner">
-              <div className="bp-related-label">More Articles</div>
+              <h2 className="bp-related-label">Related Articles</h2>
               <div className="bp-related-grid">
-                {related.map((r: any) => (
+                {related.map((r) => (
                   <Link key={r.id} href={`/blogs/${r.slug}`} className="bp-related-card">
                     <div className="bp-related-date">
-                      {new Date(r.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      <time dateTime={r.date}>{new Date(r.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
                     </div>
-                    <div className="bp-related-title">{r.title}</div>
+                    <h3 className="bp-related-title">{r.title}</h3>
                     <div className="bp-related-read">Read Article →</div>
                   </Link>
                 ))}

@@ -37,3 +37,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 jere is teh problem. i am getting in build
+
+
+google-site-verification=xsd8cNQkJ9gyHpqvbfjjVqiF9_cp2Oks7G4g7FEabN8

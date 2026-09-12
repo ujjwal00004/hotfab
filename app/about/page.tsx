@@ -1,16 +1,23 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import JsonLd from '@/components/seo/JsonLd';
+import Breadcrumbs from '@/components/seo/Breadcrumbs';
+import ServiceAreaLinks from '@/components/ServiceAreaLinks';
+import { webPageSchema } from '@/lib/schema';
+import { buildMetadata } from '@/lib/seo';
+import { SITE } from '@/lib/site';
+import { services } from '@/data/services';
 
-export const metadata: Metadata = {
+const DESCRIPTION =
+  'Learn about HotFab Welding — a family-owned welding and metal fabrication business in Warren, Michigan since 1999. MIG, TIG, and Stick welding experts serving Metro Detroit.';
+
+export const metadata: Metadata = buildMetadata({
   title: 'About Us — Family-Owned Welding Company in Warren, MI',
-  description: 'Learn about HotFab Welding — a family-owned welding and metal fabrication business in Warren, Michigan since 1999. MIG, TIG, Stick welding experts serving Metro Detroit.',
-  alternates: { canonical: 'https://www.hotfabwelding.com/about' },
-  openGraph: {
-    title: 'About HotFab Welding | Warren, Michigan',
-    description: 'Family-owned since 1999. Expert welding and metal fabrication in Warren, MI. 25+ years serving Metro Detroit.',
-    url: 'https://www.hotfabwelding.com/about',
-  },
-};
+  description: DESCRIPTION,
+  path: '/about',
+  ogTitle: 'About HotFab Welding | Warren, Michigan',
+  ogDescription: 'Family-owned since 1999. Expert welding and metal fabrication in Warren, MI. 25+ years serving Metro Detroit.',
+});
 
 export default function AboutPage() {
   const capabilities = [
@@ -51,8 +58,8 @@ export default function AboutPage() {
 
   return (
     <>
+      <JsonLd data={webPageSchema({ path: '/about', name: 'About HotFab Welding', description: DESCRIPTION, type: 'AboutPage' })} />
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
 
         :root {
           --forge: #C8410A;
@@ -406,6 +413,16 @@ export default function AboutPage() {
           text-transform: uppercase; margin-top: 8px;
         }
 
+        .ab-hero-crumbs { position:absolute; top:0; left:0; right:0; z-index:3; }
+        .ab-facts { background: var(--iron); padding: 90px 48px; border-top:1px solid var(--slag); }
+        .ab-facts-inner { max-width: 1100px; margin: 0 auto; display:grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .ab-facts h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,4vw,54px); line-height:1; color:var(--white); margin:0 0 20px; }
+        .ab-facts h3 { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:1px; color:var(--white); margin:28px 0 10px; }
+        .ab-facts p, .ab-facts address, .ab-facts li { font-size:15px; line-height:1.8; color:var(--ash); font-weight:300; font-style:normal; }
+        .ab-facts a { color:var(--forge); text-decoration:none; }
+        .ab-facts ul.plain { list-style:none; padding:0; margin:0; }
+        @media (max-width:900px) { .ab-facts { padding:70px 24px; } .ab-facts-inner { grid-template-columns:1fr; gap:36px; } }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
           .ab-hero { padding: 0 24px 60px; min-height: 80vh; }
@@ -437,6 +454,7 @@ export default function AboutPage() {
           <div className="ab-hero-tint" />
           <div className="ab-hero-top-line" />
           <div className="ab-hero-grain" />
+          <div className="ab-hero-crumbs"><Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]} /></div>
           <div className="ab-hero-inner">
             <div>
               <div className="ab-hero-tag">Family Owned · Warren, MI · Est. 1999</div>
@@ -445,7 +463,7 @@ export default function AboutPage() {
                 <em>HotFab</em>
               </h1>
               <p className="ab-hero-sub">
-                We didn't build a business — we built a reputation. Over 25 years of honest work, skilled hands, and metalwork Michigan trusts.
+                We didn&apos;t build a business — we built a reputation. Over 25 years of honest work, skilled hands, and metalwork Michigan trusts.
               </p>
             </div>
             <div className="ab-hero-badge">
@@ -469,7 +487,7 @@ export default function AboutPage() {
                   What started as a small family operation has grown into a <strong>trusted name across Michigan</strong>. For more than 25 years, we have proudly served residential, commercial, and industrial clients throughout the Metro Detroit area and beyond.
                 </p>
                 <p>
-                  As a family-owned business, we treat every project like it's our own. Whether it's a small repair or a large-scale custom fabrication job, you can expect the <strong>same level of care and attention to detail</strong> — every single time.
+                  As a family-owned business, we treat every project like it&apos;s our own. Whether it&apos;s a small repair or a large-scale custom fabrication job, you can expect the <strong>same level of care and attention to detail</strong> — every single time.
                 </p>
               </div>
             </div>
@@ -535,7 +553,7 @@ export default function AboutPage() {
                 <h2 className="ab-section-title">Our Core<br />Values</h2>
               </div>
               <p style={{fontSize:'15px', color:'var(--smoke)', lineHeight:'1.8', fontWeight:300, maxWidth:'340px'}}>
-                These aren't slogans. They're the principles that guide every weld, every client call, and every project we take on.
+                These aren&apos;t slogans. They&apos;re the principles that guide every weld, every client call, and every project we take on.
               </p>
             </div>
             <div className="ab-values-grid">
@@ -571,12 +589,50 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* ── FACTS (plain HTML entity information) ── */}
+        <section className="ab-facts" aria-labelledby="ab-facts-h">
+          <div className="ab-facts-inner">
+            <div>
+              <h2 id="ab-facts-h">Who HotFab Welding is</h2>
+              <p>
+                {SITE.name} is a family-owned welding and custom metal fabrication company founded in {SITE.foundingYear} and based at{' '}
+                {SITE.address.full}. We design, fabricate, and install custom metalwork for residential, commercial, and industrial
+                clients and operate a mobile welding unit for on-site repairs across {SITE.serviceArea.region}.
+              </p>
+              <h3>What we do</h3>
+              <ul className="plain">
+                {services.map((svc) => (
+                  <li key={svc.slug}><Link href={`/services/${svc.slug}`}>{svc.serviceName}</Link> — {svc.schemaDescription}</li>
+                ))}
+              </ul>
+              <h3>Who we work with</h3>
+              <p>Homeowners, builders and general contractors, property managers, commercial and industrial facilities, and fleet owners needing truck and trailer repairs.</p>
+            </div>
+            <div>
+              <h3 style={{ marginTop: 0 }}>Contact</h3>
+              <address>
+                {SITE.name}<br />
+                {SITE.address.street}<br />
+                {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}<br />
+                <a href={SITE.phone.href}>{SITE.phone.display}</a><br />
+                <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              </address>
+              <h3>Hours</h3>
+              <ul className="plain">{SITE.hours.map((h) => <li key={h.label}>{h.label}</li>)}</ul>
+              <h3>Service area</h3>
+              <p>Based in {SITE.serviceArea.primary}; serving {SITE.serviceArea.counties.join(', ')} and the wider Metro Detroit area.</p>
+              <ServiceAreaLinks />
+              <p style={{ marginTop: 20 }}>See our <Link href="/gallery">project gallery</Link>, read the <Link href="/faq">FAQ</Link>, or <Link href="/contact">request a free quote</Link>.</p>
+            </div>
+          </div>
+        </section>
+
         {/* ── CTA ── */}
         <section className="ab-cta">
           <div className="ab-cta-line" />
           <div className="ab-cta-inner">
             <h2 className="ab-cta-title">
-              Let's Build<br />Something <span>Strong</span>
+              Let&apos;s Build<br />Something <span>Strong</span>
             </h2>
             <p className="ab-cta-sub">
               Whether you need a simple repair or a complex custom metal project — our experienced team is ready to help.

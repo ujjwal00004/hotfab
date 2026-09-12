@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import { SITE } from '@/lib/site';
+import { services } from '@/data/services';
+import { locations } from '@/data/locations';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -6,7 +9,6 @@ export default function Footer() {
   return (
     <footer>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
 
         .hf-footer {
           font-family: 'Barlow', sans-serif;
@@ -189,6 +191,11 @@ export default function Footer() {
         @media (max-width: 540px) {
           .hf-footer-body { grid-template-columns: 1fr; }
         }
+        .hf-footer-areas { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:0 48px 40px; }
+        .hf-footer-areas-list { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:8px 22px; }
+        .hf-footer-areas-list a { font-size:13px; color:#6B6B6B; text-decoration:none; transition:color .2s; }
+        .hf-footer-areas-list a:hover { color:#C8410A; }
+        @media (max-width:900px) { .hf-footer-areas { padding:0 24px 32px; } }
       `}</style>
 
       <div className="hf-footer">
@@ -197,10 +204,10 @@ export default function Footer() {
         <div className="hf-footer-body">
           {/* Brand */}
           <div>
-            <a href="/" className="hf-footer-logo">
+            <Link href="/" className="hf-footer-logo">
               <div className="hf-footer-logomark" />
               <span className="hf-footer-logotype">Hot<span>Fab</span></span>
-            </a>
+            </Link>
             <p className="hf-footer-tagline">
               Family-owned welding and custom metal fabrication. Serving Michigan with precision and pride since 1999.
             </p>
@@ -215,7 +222,7 @@ export default function Footer() {
           <div>
             <div className="hf-footer-col-title">Navigate</div>
             <ul className="hf-footer-links">
-              {[['/', 'Home'], ['/about', 'About Us'], ['/services', 'Services'], ['/blogs', 'Blog'], ['/faq', 'FAQ'], ['/contact', 'Contact']].map(([href, label]) => (
+              {[['/', 'Home'], ['/about', 'About Us'], ['/services', 'Services'], ['/welding', 'Service Areas'], ['/gallery', 'Gallery'], ['/blogs', 'Blog'], ['/faq', 'FAQ'], ['/contact', 'Contact']].map(([href, label]) => (
                 <li key={href}><Link href={href}>{label}</Link></li>
               ))}
             </ul>
@@ -225,8 +232,8 @@ export default function Footer() {
           <div>
             <div className="hf-footer-col-title">Services</div>
             <ul className="hf-footer-links">
-              {['Custom Fabrication', 'Mobile Welding', 'Structural Steel', 'Railings & Gates', 'Emergency Repairs'].map((s) => (
-                <li key={s}><Link href="/services">{s}</Link></li>
+              {services.map((svc) => (
+                <li key={svc.slug}><Link href={`/services/${svc.slug}`}>{svc.serviceName}</Link></li>
               ))}
             </ul>
           </div>
@@ -247,22 +254,37 @@ export default function Footer() {
 
             <div className="hf-contact-block">
               <div className="hf-contact-label">Location</div>
-              <p className="hf-contact-location">Warren, Michigan<br />Metro Detroit Area</p>
+              <address className="hf-contact-location" style={{ fontStyle: 'normal' }}>
+                {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+              </address>
             </div>
 
-            <a href="/contact" className="hf-footer-cta">Request a Free Quote →</a>
+            <div className="hf-contact-block">
+              <div className="hf-contact-label">Hours</div>
+              <p className="hf-contact-location">{SITE.hours.map((h) => h.label).join(' · ')}</p>
+            </div>
+
+            <Link href="/contact" className="hf-footer-cta">Request a Free Quote →</Link>
           </div>
         </div>
 
         {/* Bottom Bar */}
+        <div className="hf-footer-areas">
+          <span className="hf-footer-col-title">Serving Metro Detroit</span>
+          <ul className="hf-footer-areas-list">
+            {locations.map((l) => (
+              <li key={l.slug}><Link href={`/welding/${l.slug}`}>Welding in {l.city}, MI</Link></li>
+            ))}
+          </ul>
+        </div>
         <div className="hf-footer-bottom">
           <p className="hf-footer-copy">
             © {year} <span>HotFab Welding</span> · All Rights Reserved · Family Owned & Operated in Michigan
           </p>
           <ul className="hf-footer-bottom-links">
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/about">About</a></li>
+            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/services">Services</Link></li>
+            <li><Link href="/about">About</Link></li>
           </ul>
         </div>
       </div>

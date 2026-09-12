@@ -1,33 +1,19 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { SITE } from '@/lib/site';
 
+// Everything public is crawlable. Only Next.js internals and the (non-existent
+// today, but conventional) /api path is excluded. CSS, JS and
+// images are intentionally NOT blocked — Google needs them to render pages.
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
-      },
-      // Explicitly allow AI crawlers to access llms.txt
-      {
-        userAgent: 'GPTBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'Claude-Web',
-        allow: '/',
-      },
-      {
-        userAgent: 'PerplexityBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'Googlebot',
-        allow: '/',
+        allow: ['/', '/llms.txt', '/llms-full.txt'],
+        disallow: ['/api/'],
       },
     ],
-    sitemap: 'https://www.hotfabwelding.com/sitemap.xml',
-    // LLM crawlers also check this file for llms.txt discovery
-    // See: https://www.hotfabwelding.com/llms.txt
-    // See: https://www.hotfabwelding.com/llms-full.txt
+    sitemap: `${SITE.url}/sitemap.xml`,
+    host: SITE.url,
   };
 }

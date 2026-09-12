@@ -16,7 +16,6 @@ export default function Navbar() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&display=swap');
 
         .hf-nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 200;
@@ -190,6 +189,7 @@ export default function Navbar() {
             <li><Link href="/about">About</Link></li>
             <li><Link href="/gallery">Gallery</Link></li>
             <li><Link href="/services">Services</Link></li>
+            <li><Link href="/welding">Areas</Link></li>
             <li><Link href="/blogs">Blog</Link></li>
             <li><Link href="/faq">FAQ</Link></li>
             <li><Link href="/contact">Contact</Link></li>
@@ -217,11 +217,10 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       <div className={`hf-drawer ${isOpen ? 'visible' : ''}`}>
         <ul className="hf-drawer-links">
-          {['/', '/about', '/services', '/blogs', '/faq', '/contact','/gallery'].map((href, i) => {
-            const labels = ['Home', 'About', 'Services', 'Blog', 'FAQ', 'Contact','Gallery'];
+          {[['/', 'Home'], ['/about', 'About'], ['/services', 'Services'], ['/welding', 'Service Areas'], ['/gallery', 'Gallery'], ['/blogs', 'Blog'], ['/faq', 'FAQ'], ['/contact', 'Contact']].map(([href, label], i) => {
             return (
               <li key={i}>
-                <Link href={href} onClick={() => setIsOpen(false)}>{labels[i]}</Link>
+                <Link href={href} onClick={() => setIsOpen(false)}>{label}</Link>
               </li>
             );
           })}

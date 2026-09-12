@@ -13,10 +13,9 @@ export default function FaqClient({ faqs }: { faqs: FaqItem[] }) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
         :root{--forge:#C8410A;--forge-light:#E85D1A;--iron:#0D0D0D;--steel:#1A1A1A;--slag:#2C2C2C;--smoke:#6B6B6B;--ash:#A0A0A0;--white:#F5F3EF;}
         .faq-wrap{font-family:'Barlow',sans-serif;background:var(--iron);color:var(--white);min-height:100vh;}
-        .faq-hero{position:relative;padding:140px 48px 80px;background:linear-gradient(180deg,rgba(200,65,10,0.05) 0%,transparent 100%);border-bottom:1px solid var(--slag);}
+        .faq-hero{position:relative;padding:36px 48px 80px;background:linear-gradient(180deg,rgba(200,65,10,0.05) 0%,transparent 100%);border-bottom:1px solid var(--slag);}
         .faq-hero-line{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--forge),transparent);}
         .faq-hero-inner{max-width:900px;margin:0 auto;}
         .faq-tag{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--forge);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
@@ -26,6 +25,7 @@ export default function FaqClient({ faqs }: { faqs: FaqItem[] }) {
         .faq-sub{font-size:17px;font-weight:300;color:var(--ash);line-height:1.8;max-width:600px;}
         .faq-body{max-width:900px;margin:0 auto;padding:80px 48px 120px;}
         .faq-item{border-bottom:1px solid var(--slag);}
+        .faq-h{margin:0;font-size:inherit;font-weight:inherit;}
         .faq-question{width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 0;font-family:'Barlow',sans-serif;font-size:18px;font-weight:600;color:var(--white);text-align:left;line-height:1.4;transition:color 0.2s;}
         .faq-question:hover{color:var(--forge);}
         .faq-question.open{color:var(--forge);}
@@ -40,7 +40,7 @@ export default function FaqClient({ faqs }: { faqs: FaqItem[] }) {
         .faq-btn:hover{background:var(--forge-light);border-color:var(--forge-light);}
         .faq-btn-ghost{background:transparent;border:2px solid var(--slag);color:var(--white);}
         .faq-btn-ghost:hover{border-color:var(--white);background:transparent;}
-        @media(max-width:768px){.faq-hero{padding:120px 24px 60px;}.faq-body{padding:60px 24px 80px;}.faq-question{font-size:16px;}}
+        @media(max-width:768px){.faq-hero{padding:24px 24px 60px;}.faq-body{padding:60px 24px 80px;}.faq-question{font-size:16px;}}
       `}</style>
 
       <div className="faq-wrap">
@@ -54,7 +54,7 @@ export default function FaqClient({ faqs }: { faqs: FaqItem[] }) {
               <em>FAQ</em>
             </h1>
             <p className="faq-sub">
-              Everything you need to know about our services, process, materials, and pricing — answered by Warren, Michigan's most trusted welding team.
+              Everything you need to know about our services, process, materials, and pricing — answered by Warren, Michigan&apos;s most trusted welding team.
             </p>
           </div>
         </section>
@@ -64,15 +64,19 @@ export default function FaqClient({ faqs }: { faqs: FaqItem[] }) {
             const isOpen = openIndex === i;
             return (
               <div key={i} className="faq-item">
-                <button
-                  className={`faq-question${isOpen ? ' open' : ''}`}
-                  aria-expanded={isOpen}
-                  onClick={() => toggle(i)}
-                >
-                  {faq.question}
-                  <span className={`faq-icon${isOpen ? ' open' : ''}`} aria-hidden="true">+</span>
-                </button>
+                <h2 className="faq-h">
+                  <button
+                    className={`faq-question${isOpen ? ' open' : ''}`}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${i}`}
+                    onClick={() => toggle(i)}
+                  >
+                    {faq.question}
+                    <span className={`faq-icon${isOpen ? ' open' : ''}`} aria-hidden="true">+</span>
+                  </button>
+                </h2>
                 <div
+                  id={`faq-answer-${i}`}
                   className={`faq-answer${isOpen ? ' open' : ''}`}
                   style={{ maxHeight: isOpen ? '400px' : '0px' }}
                 >

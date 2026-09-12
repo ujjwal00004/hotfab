@@ -1,109 +1,93 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import JsonLd from '@/components/JsonLd';
+import JsonLd from '@/components/seo/JsonLd';
+import { localBusinessSchema, websiteSchema } from '@/lib/schema';
+import { SITE } from '@/lib/site';
 import './globals.css';
 
-import Script from "next/script"; // 👈 ADD THIS
+// Fonts used by every page's scoped <style> blocks. Loaded ONCE here (with
+// preconnect) instead of via per-page CSS @import, which was render-blocking
+// and duplicated on every route.
+const GOOGLE_FONTS_HREF =
+  'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap';
 
+// NOTE: no `alternates.canonical` here on purpose. `alternates` is shallow-merged
+// into child routes, so a site-wide canonical would make every page that forgot
+// to set its own canonical point at the homepage (a classic "alternate page with
+// proper canonical tag" indexing failure). Each page sets its own via buildMetadata().
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.hotfabwelding.com'),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: 'HotFab Welding | Expert Welding & Custom Metal Fabrication in Warren, MI',
-    template: '%s | HotFab Welding — Warren, MI',
+    default: `${SITE.name} | ${SITE.tagline}`,
+    template: `%s | ${SITE.name}`,
   },
-  description: 'Family-owned welding company in Warren, Michigan. 25+ years experience in custom railings, gates, fences, balconies, staircases, sculptures, and mobile on-site welding. Free quotes. Call (248) 259-9956.',
-  keywords: [
-    // Core local SEO
-    'welding Warren MI', 'metal fabrication Warren MI', 'custom railings Warren MI',
-    'on site welding Michigan', 'mobile welding Detroit', 'steel fabrication Warren',
-    'gates and fences Warren MI', 'aluminum welding Michigan', 'structural welding Detroit',
-    'HotFab Welding', 'Warren MI welder', 'custom metal fabrication Michigan',
-    // AEO: long-tail conversational queries AI engines index
-    'best welder near Warren MI', 'who does custom metal fabrication in Warren Michigan',
-    'mobile welding service near me Metro Detroit', 'emergency welding repair Michigan',
-    'custom staircase railing Warren MI', 'spiral staircase fabrication Michigan',
-    'balcony railing fabrication Detroit', 'stainless steel welding Warren',
-    // GEO: AI assistants look for these specific phrases
-    'welding company Warren Michigan', 'family owned welding shop Metro Detroit',
-    'licensed insured welder Michigan', 'on site welding Metro Detroit',
-  ],
-  authors: [{ name: 'HotFab Welding', url: 'https://www.hotfabwelding.com' }],
-  creator: 'HotFab Welding',
-  publisher: 'HotFab Welding',
+  description: SITE.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  category: 'Welding and Metal Fabrication',
+  formatDetection: { telephone: true, email: true, address: true },
   openGraph: {
-    title: 'HotFab Welding — Warren, Michigan',
-    description: 'Expert custom metal fabrication and on-site welding services in Warren, MI. 25+ years, 2,000+ projects. Call (248) 259-9956 for a free quote.',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'HotFab Welding — Custom Metal Fabrication in Warren, Michigan' }],
-    url: 'https://www.hotfabwelding.com',
-    siteName: 'HotFab Welding',
-    locale: 'en_US',
     type: 'website',
+    siteName: SITE.name,
+    locale: 'en_US',
+    url: SITE.url,
+    title: `${SITE.name} — Warren, Michigan`,
+    description: SITE.description,
+    images: [{ url: SITE.ogImage.url, width: SITE.ogImage.width, height: SITE.ogImage.height, alt: SITE.ogImage.alt }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HotFab Welding | Warren MI',
-    description: '25+ years of expert welding and metal fabrication in Warren, Michigan. Call (248) 259-9956.',
-    images: ['/og-image.jpg'],
+    title: `${SITE.name} | Warren MI`,
+    description: SITE.description,
+    images: [SITE.ogImage.url],
   },
-  alternates: {
-    canonical: 'https://www.hotfabwelding.com',
-  },
-  icons: {
-    icon: '/favicon.ico',
-  },
+  icons: { icon: '/favicon.ico' },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,        // AEO: allow Google to show full snippets in AI answers
-      'max-video-preview': -1,
-    },
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
   },
-  // AEO: Helps AI engines identify geographic relevance
   other: {
-    'geo.region': 'US-MI',
-    'geo.placename': 'Warren, Michigan',
-    'geo.position': '42.4977;-83.0166',
-    'ICBM': '42.4977, -83.0166',
-    // GEO: Perplexity, ChatGPT, Gemini read these for AI citations
-    'citation': 'HotFab Welding, 13118 E 9 Mile Rd, Warren, MI 48089, (248) 259-9956',
-    'business:contact_data:locality': 'Warren',
-    'business:contact_data:region': 'Michigan',
-    'business:contact_data:country_name': 'United States',
+    'geo.region': `US-${SITE.address.region}`,
+    'geo.placename': `${SITE.address.city}, ${SITE.address.regionName}`,
+    'geo.position': `${SITE.geo.latitude};${SITE.geo.longitude}`,
+    ICBM: `${SITE.geo.latitude}, ${SITE.geo.longitude}`,
   },
-  verification: {
-    google: 'xsd8cNQkJ9gyHpqvbfjjVqiF9_cp2Oks7G4g7FEabN8',
-  },
+  verification: { google: SITE.verification.google },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0D0D0D',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-LZVSWPVNQK"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-LZVSWPVNQK');
-          `}
-        </Script>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="stylesheet" href={GOOGLE_FONTS_HREF} />
+      </head>
       <body>
-        <JsonLd />
+        {/* Site-wide entity graph: the business + the website. Page-level schema lives in each page. */}
+        <JsonLd data={[localBusinessSchema(), websiteSchema()]} />
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${SITE.analytics.gaId}`} strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${SITE.analytics.gaId}');`}
+        </Script>
       </body>
     </html>
   );

@@ -1,14 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-type Blog = {
-  id: number;
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  image: string;
-};
+import type { Blog } from '@/data/blogs';
 
 export default function BlogCard({ blog }: { blog: Blog }) {
   const formatted = new Date(blog.date).toLocaleDateString('en-US', {
@@ -20,7 +13,6 @@ export default function BlogCard({ blog }: { blog: Blog }) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
 
         .bc-card {
           display: block;
@@ -180,9 +172,11 @@ export default function BlogCard({ blog }: { blog: Blog }) {
             src={blog.image}
             alt={blog.title}
             fill
+            sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
           />
           <div className="bc-image-overlay" />
-          <div className="bc-date">{formatted}</div>
+          <div className="bc-date"><time dateTime={blog.date}>{formatted}</time></div>
         </div>
 
         {/* Content */}

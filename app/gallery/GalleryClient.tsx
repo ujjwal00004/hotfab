@@ -5,8 +5,9 @@ import Link from 'next/link';
 
 const IMG = 'https://res.cloudinary.com/dty0qurl9/image/upload/v1777365279';
 const NEW = 'https://res.cloudinary.com/dty0qurl9/image/upload'; // ⚠️ After uploading the 13 new images to Cloudinary, if it adds a version/suffix (e.g. v1783.../..._ab12cd.jpg), paste the exact URL Cloudinary gives you over each src below.
-const VID_THUMB = 'https://res.cloudinary.com/dty0qurl9/video/upload/so_0,w_600,h_400,c_fill,f_jpg';
-const VID_EMBED = 'https://player.cloudinary.com/embed/?cloud_name=dty0qurl9&public_id=';
+// Video support (uncomment with the video entries below when clips are uploaded to Cloudinary):
+// const VID_THUMB = 'https://res.cloudinary.com/dty0qurl9/video/upload/so_0,w_600,h_400,c_fill,f_jpg';
+// const VID_EMBED = 'https://player.cloudinary.com/embed/?cloud_name=dty0qurl9&public_id=';
 
 type Category = 'Railings' | 'Stairs & Staircases' | 'Fences & Gates' | 'Custom Fabrication';
 const categories: ('All Work' | Category)[] = ['All Work', 'Railings', 'Stairs & Staircases', 'Fences & Gates', 'Custom Fabrication'];
@@ -42,6 +43,9 @@ const media: MediaItem[] = [
   { type:'image', src:'https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=370,fit=crop,trim=183.342175066313;0;366.684350132626;0/Z8a0FiwOwBsnBFYS/6147184802881062883-mp84pEXKkocb5yBP.jpeg', alt:'Long horizontal exterior steel railing fabricated and installed by Hot Fab Welding', label:'Exterior Long Railing', title:'Long Exterior Steel Railing — Metro Detroit', category:'Railings' },
 
   // ——— Stairs & Staircases ———
+  // NEW — black metal stair railing project (Sep 2026)
+  { type:'image', src:`${NEW}/black-metal-stair-railing-warren-mi.jpg`, alt:'Custom black metal stair railing with horizontal bars and wall-mounted handrail installed by Hot Fab Welding in Warren, MI', label:'Black Metal Stair Railing', title:'Black Metal Stair Railing with Horizontal Bars — Warren, MI', category:'Stairs & Staircases' },
+  { type:'image', src:`${NEW}/horizontal-bar-staircase-railing-michigan.jpg`, alt:'Modern horizontal bar steel staircase railing and handrail on oak stairs, custom fabricated in Michigan', label:'Horizontal Bar Staircase Railing', title:'Modern Horizontal Bar Staircase Railing — Michigan', category:'Stairs & Staircases' },
   // NEW — stainless steel railing project (Aug 2026)
   { type:'image', src:`${NEW}/custom-stainless-steel-staircase-railing-warren-mi.jpg`, alt:'Custom stainless steel staircase railing with horizontal bars installed across multiple flights in a new Warren, MI home', label:'Stainless Staircase Railing', title:'Custom Stainless Steel Staircase Railing — Warren, MI', category:'Stairs & Staircases' },
   { type:'image', src:`${NEW}/stainless-steel-railing-multi-level-staircase-michigan.jpg`, alt:'Stainless steel railing on a multi-level staircase, custom fabricated by Hot Fab Welding in Michigan', label:'Multi-Level Staircase', title:'Stainless Steel Railing — Multi-Level Staircase Michigan', category:'Stairs & Staircases' },
@@ -65,6 +69,9 @@ const media: MediaItem[] = [
   { type:'image', src:`${NEW}/horizontal-bar-staircase-railing-michigan.jpg`, alt:'Modern horizontal bar steel staircase railing and handrail on oak stairs, custom fabricated in Michigan', label:'Horizontal Bar Staircase Railing', title:'Modern Horizontal Bar Staircase Railing — Michigan', category:'Stairs & Staircases' },
 
   // ——— Fences & Gates ———
+  // NEW — driveway gates (Sep 2026)
+  { type:'image', src:`${NEW}/custom-steel-driveway-gate-warren-mi.jpg`, alt:'Custom black steel horizontal slat driveway gate installed between a wood fence and home in Warren, MI', label:'Steel Driveway Gate', title:'Custom Steel Driveway Gate — Warren, MI', category:'Fences & Gates' },
+  { type:'image', src:`${NEW}/double-swing-metal-driveway-gate-michigan.jpg`, alt:'Double swing black metal driveway gate with arched top and horizontal slats, fabricated by Hot Fab Welding in Michigan', label:'Double Swing Driveway Gate', title:'Double Swing Metal Driveway Gate — Michigan', category:'Fences & Gates' },
   { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719732/custom-wrought-iron-gate-gothic-arch-design-michigan_ekppcw.jpg', alt:'Custom wrought iron gate with gothic arch design fabricated by Hot Fab Welding in Michigan', label:'Gothic Arch Iron Gate', title:'Custom Wrought Iron Gate — Gothic Arch Design Michigan', category:'Fences & Gates' },
   { type:'image', src:'https://res.cloudinary.com/dty0qurl9/image/upload/v1780719606/galvanized-steel-grating-gate-fabrication-warren-mi_jhxpkb.jpg', alt:'Galvanized steel grating gate fabricated by Hot Fab Welding in Warren, MI', label:'Steel Grating Gate', title:'Galvanized Steel Grating Gate Fabrication — Warren, MI', category:'Fences & Gates' },
     // NEW — driveway gates (Sep 2026)
@@ -107,10 +114,9 @@ export default function GalleryClient() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600&display=swap');
         :root{--forge:#C8410A;--forge-light:#E85D1A;--iron:#0D0D0D;--steel:#1A1A1A;--slag:#2C2C2C;--smoke:#6B6B6B;--ash:#A0A0A0;--white:#F5F3EF;}
         .gl-wrap{font-family:'Barlow',sans-serif;background:var(--iron);color:var(--white);min-height:100vh;}
-        .gl-hero{position:relative;padding:160px 48px 96px;overflow:hidden;}
+        .gl-hero{position:relative;padding:36px 48px 96px;overflow:hidden;}
         .gl-hero-line{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--forge),transparent);}
         .gl-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.013) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.013) 1px,transparent 1px);background-size:72px 72px;pointer-events:none;}
         .gl-hero-glow{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:700px;height:320px;background:radial-gradient(ellipse,rgba(200,65,10,0.1) 0%,transparent 70%);pointer-events:none;}
@@ -176,7 +182,7 @@ export default function GalleryClient() {
         .gl-btn-primary:hover{background:var(--forge-light);border-color:var(--forge-light);}
         .gl-btn-ghost{background:transparent;color:var(--white);padding:16px 36px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:2px solid var(--slag);transition:all 0.2s;white-space:nowrap;}
         .gl-btn-ghost:hover{border-color:var(--white);}
-        @media(max-width:900px){.gl-hero{padding:140px 24px 72px;}.gl-hero-inner{grid-template-columns:1fr;}.gl-hero-badge{display:none;}.gl-section{padding:0 16px 80px;}.gl-masonry{columns:2;}.gl-filter{padding:10px 16px;font-size:10px;}.gl-lb-prev{left:12px;}.gl-lb-next{right:12px;}.gl-lb-nav{width:40px;height:40px;font-size:16px;}.gl-cta{padding:60px 24px;}.gl-cta-inner{flex-direction:column;align-items:flex-start;}.gl-lb-video-wrap{width:92vw;}}
+        @media(max-width:900px){.gl-hero{padding:24px 24px 72px;}.gl-hero-inner{grid-template-columns:1fr;}.gl-hero-badge{display:none;}.gl-section{padding:0 16px 80px;}.gl-masonry{columns:2;}.gl-filter{padding:10px 16px;font-size:10px;}.gl-lb-prev{left:12px;}.gl-lb-next{right:12px;}.gl-lb-nav{width:40px;height:40px;font-size:16px;}.gl-cta{padding:60px 24px;}.gl-cta-inner{flex-direction:column;align-items:flex-start;}.gl-lb-video-wrap{width:92vw;}}
         @media(max-width:480px){.gl-masonry{columns:1;}}
       `}</style>
 
@@ -209,7 +215,8 @@ export default function GalleryClient() {
             <div className="gl-masonry">
               {filtered.map((item, i) => (
                 <div key={item.src} className="gl-item" onClick={() => setLightbox(i)} role="button" tabIndex={0} aria-label={`View ${item.type === 'video' ? 'video' : 'photo'}: ${item.label}`} title={item.title} onKeyDown={(e) => e.key === 'Enter' && setLightbox(i)}>
-                  <img src={item.src} alt={item.alt} loading="lazy" width={600} height={400} />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- mixed hosts (Cloudinary + legacy CDN); explicit width/height prevents layout shift */}
+                  <img src={item.src} alt={item.alt} loading="lazy" decoding="async" width={600} height={400} />
                   <div className="gl-item-overlay"><span className="gl-item-label">{item.label}</span></div>
                   {item.type === 'image' && <div className="gl-item-expand">⤢</div>}
                 </div>
@@ -232,6 +239,7 @@ export default function GalleryClient() {
             ) : (
               <div className="gl-lb-img-wrap">
                 <div className="gl-lb-top-line" />
+                {/* eslint-disable-next-line @next/next/no-img-element -- lightbox shows the original asset at full size */}
                 <img src={current.src} alt={current.alt} />
                 <div className="gl-lb-meta"><span className="gl-lb-label">{current.label}</span><span className="gl-lb-counter"><span>{lightbox + 1}</span> / {filtered.length}</span></div>
               </div>
@@ -243,7 +251,7 @@ export default function GalleryClient() {
           <div className="gl-cta-inner">
             <div>
               <div className="gl-cta-title">Like What<br />You <span>See?</span></div>
-              <p className="gl-cta-sub">Let's build something for you — free estimates, no obligation.</p>
+              <p className="gl-cta-sub">Let&apos;s build something for you — free estimates, no obligation.</p>
             </div>
             <div className="gl-cta-actions">
               <a href="tel:2482599956" className="gl-btn-primary">☎ Call (248) 259-9956</a>

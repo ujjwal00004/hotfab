@@ -24,10 +24,10 @@ export default function ContactClient() {
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfTTHCsSS8oTVjYr9LUz0u2NWR0a_nJTy_-cdqMRraioMlfl0IIBHVH98rC1NQGi8x/exec';
 
     try {
-      const res=await fetch(SCRIPT_URL, {
+      const res = await fetch(SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
+        body: new URLSearchParams(formData).toString(),
       });
 
       console.log('Form submission response:', res);
@@ -42,19 +42,18 @@ export default function ContactClient() {
     }
   };
   const info = [
-    { label: 'Location', value: 'Warren, Michigan', sub: 'Metro Detroit Area', href: null },
+    { label: 'Location', value: '13118 E 9 Mile Rd, Warren, MI 48089', sub: 'Metro Detroit Area', href: 'https://www.google.com/maps/search/?api=1&query=HotFab+Welding%2C+13118+E+9+Mile+Rd%2C+Warren%2C+MI+48089' },
     { label: 'Phone', value: '(248) 259-9956', sub: 'Calls & texts welcome', href: 'tel:2482599956' },
     { label: 'Email', value: 'hotfabwelding@gmail.com', sub: 'Reply within 1 business day', href: 'mailto:hotfabwelding@gmail.com' },
-    { label: 'Hours', value: 'Mon–Fri: 8AM – 5PM', sub: 'Sat: By Appointment', href: null },
+    { label: 'Hours', value: 'Mon–Fri: 8AM – 5PM', sub: 'Sat: 8AM – 2PM', href: null },
   ];
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
         :root { --forge:#C8410A;--forge-light:#E85D1A;--iron:#0D0D0D;--steel:#1A1A1A;--slag:#2C2C2C;--smoke:#6B6B6B;--ash:#A0A0A0;--white:#F5F3EF; }
         .cp-wrap { font-family:'Barlow',sans-serif;background:var(--iron);color:var(--white);min-height:100vh; }
-        .cp-hero { position:relative;padding:160px 48px 80px;overflow:hidden; }
+        .cp-hero{ position:relative;padding:36px 48px 80px;overflow:hidden; }
         .cp-hero-grid { position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.013) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.013) 1px,transparent 1px);background-size:72px 72px;pointer-events:none; }
         .cp-hero-glow { position:absolute;bottom:-60px;left:30%;width:500px;height:260px;background:radial-gradient(ellipse,rgba(200,65,10,0.1) 0%,transparent 70%);pointer-events:none; }
         .cp-hero-line { position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--forge),transparent); }
@@ -113,7 +112,7 @@ export default function ContactClient() {
         .cp-trust-num { font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--white);line-height:1;margin-bottom:6px; }
         .cp-trust-num span { color:var(--forge); }
         .cp-trust-label { font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--smoke); }
-        @media(max-width:900px){.cp-hero{padding:140px 24px 64px;}.cp-hero-inner{grid-template-columns:1fr;}.cp-hero-response{display:none;}.cp-body{padding:0 24px 80px;}.cp-body-inner{grid-template-columns:1fr;}.cp-form-panel{padding:48px 28px;}.cp-field-row{grid-template-columns:1fr;gap:0;}.cp-trust{padding:48px 24px;}.cp-trust-inner{grid-template-columns:1fr 1fr;}.cp-info-item{padding:28px 28px;}.cp-emergency{padding:36px 28px;}.cp-services-link{padding:20px 28px;}}
+        @media(max-width:900px){.cp-hero{padding:24px 24px 64px;}.cp-hero-inner{grid-template-columns:1fr;}.cp-hero-response{display:none;}.cp-body{padding:0 24px 80px;}.cp-body-inner{grid-template-columns:1fr;}.cp-form-panel{padding:48px 28px;}.cp-field-row{grid-template-columns:1fr;gap:0;}.cp-trust{padding:48px 24px;}.cp-trust-inner{grid-template-columns:1fr 1fr;}.cp-info-item{padding:28px 28px;}.cp-emergency{padding:36px 28px;}.cp-services-link{padding:20px 28px;}}
         @media(max-width:480px){.cp-trust-inner{grid-template-columns:1fr;}}
       `}</style>
 
@@ -144,27 +143,27 @@ export default function ContactClient() {
                 <div className="cp-success">
                   <div className="cp-success-icon">✓</div>
                   <div className="cp-success-title">Message Sent</div>
-                  <p className="cp-success-sub">We'll be in touch within one business day.</p>
+                  <p className="cp-success-sub">We&apos;ll be in touch within one business day.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
                   <div className="cp-field">
-                    <label className={`cp-label ${focused === 'name' ? 'active' : ''}`}>Full Name *</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required className="cp-input" placeholder="John Doe" onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} />
+                    <label htmlFor="cp-name" className={`cp-label ${focused === 'name' ? 'active' : ''}`}>Full Name *</label>
+                    <input type="text" id="cp-name" name="name" value={formData.name} onChange={handleChange} required className="cp-input" placeholder="John Doe" onFocus={() => setFocused('name')} onBlur={() => setFocused(null)} />
                   </div>
                   <div className="cp-field-row">
                     <div>
-                      <label className={`cp-label ${focused === 'phone' ? 'active' : ''}`}>Phone *</label>
-                      <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required className="cp-input" placeholder="(248) 123-4567" onFocus={() => setFocused('phone')} onBlur={() => setFocused(null)} />
+                      <label htmlFor="cp-phone" className={`cp-label ${focused === 'phone' ? 'active' : ''}`}>Phone *</label>
+                      <input type="tel" id="cp-phone" name="phone" value={formData.phone} onChange={handleChange} required className="cp-input" placeholder="(248) 123-4567" onFocus={() => setFocused('phone')} onBlur={() => setFocused(null)} />
                     </div>
                     <div>
-                      <label className={`cp-label ${focused === 'email' ? 'active' : ''}`}>Email</label>
-                      <input type="email" name="email" value={formData.email} onChange={handleChange} className="cp-input" placeholder="your@email.com" onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} />
+                      <label htmlFor="cp-email" className={`cp-label ${focused === 'email' ? 'active' : ''}`}>Email</label>
+                      <input type="email" id="cp-email" name="email" value={formData.email} onChange={handleChange} className="cp-input" placeholder="your@email.com" onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} />
                     </div>
                   </div>
                   <div className="cp-field">
-                    <label className={`cp-label ${focused === 'service' ? 'active' : ''}`}>Service Needed</label>
-                    <select name="service" value={formData.service} onChange={handleChange} className="cp-select" onFocus={() => setFocused('service')} onBlur={() => setFocused(null)}>
+                    <label htmlFor="cp-service" className={`cp-label ${focused === 'service' ? 'active' : ''}`}>Service Needed</label>
+                    <select id="cp-service" name="service" value={formData.service} onChange={handleChange} className="cp-select" onFocus={() => setFocused('service')} onBlur={() => setFocused(null)}>
                       <option value="">Select a Service</option>
                       <option value="Custom Fabrication">Custom Metal Fabrication</option>
                       <option value="On-Site Welding">On-Site / Mobile Welding</option>
@@ -174,8 +173,8 @@ export default function ContactClient() {
                     </select>
                   </div>
                   <div className="cp-field">
-                    <label className={`cp-label ${focused === 'message' ? 'active' : ''}`}>Project Details *</label>
-                    <textarea name="message" value={formData.message} onChange={handleChange} required className="cp-textarea" placeholder="Describe your project — dimensions, material, location, timeline..." onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} />
+                    <label htmlFor="cp-message" className={`cp-label ${focused === 'message' ? 'active' : ''}`}>Project Details *</label>
+                    <textarea id="cp-message" name="message" value={formData.message} onChange={handleChange} required className="cp-textarea" placeholder="Describe your project — dimensions, material, location, timeline..." onFocus={() => setFocused('message')} onBlur={() => setFocused(null)} />
                   </div>
                   <button type="submit" className="cp-submit">Send Message →</button>
                   <p className="cp-submit-note">We respond within 1 business day</p>

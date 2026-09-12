@@ -1,64 +1,35 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import FaqSchema from '@/components/FaqSchema';
+import JsonLd from '@/components/seo/JsonLd';
+import Breadcrumbs from '@/components/seo/Breadcrumbs';
+import ServiceAreaLinks from '@/components/ServiceAreaLinks';
+import { faqSchema, serviceSchema, webPageSchema } from '@/lib/schema';
+import { SITE } from '@/lib/site';
 import { Service, getService } from '@/data/services';
 
-const SITE = 'https://www.hotfabwelding.com';
-
 export default function ServicePage({ service }: { service: Service }) {
-  // Service schema — tells Google and AI engines exactly what this page offers
-  const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    'name': service.serviceName,
-    'serviceType': service.serviceType,
-    'description': service.schemaDescription,
-    'url': `${SITE}/services/${service.slug}`,
-    'provider': { '@id': `${SITE}/#business` },
-    'areaServed': [
-      { '@type': 'City', 'name': 'Warren' },
-      { '@type': 'City', 'name': 'Sterling Heights' },
-      { '@type': 'City', 'name': 'Detroit' },
-      { '@type': 'City', 'name': 'Troy' },
-      { '@type': 'City', 'name': 'Dearborn' },
-      { '@type': 'State', 'name': 'Michigan' },
-    ],
-  };
-
-  // Breadcrumb schema — Home > Services > This Service
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    'itemListElement': [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
-      { '@type': 'ListItem', position: 2, name: 'Services', item: `${SITE}/services` },
-      { '@type': 'ListItem', position: 3, name: service.serviceName, item: `${SITE}/services/${service.slug}` },
-    ],
-  };
-
+  const path = `/services/${service.slug}`;
   const related = service.related
     .map((slug) => getService(slug))
     .filter((s): s is Service => Boolean(s));
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <FaqSchema faqs={service.faqs} />
+      <JsonLd
+        data={[
+          webPageSchema({ path, name: service.title, description: service.metaDescription, image: service.image }),
+          serviceSchema({ slug: service.slug, name: service.serviceName, serviceType: service.serviceType, description: service.schemaDescription, image: service.image }),
+          faqSchema(service.faqs),
+        ]}
+      />
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
         :root {
           --forge:#C8410A; --forge-light:#E85D1A; --iron:#0D0D0D; --steel:#1A1A1A;
           --slag:#2C2C2C; --smoke:#6B6B6B; --ash:#A0A0A0; --white:#F5F3EF; --cream:#EDE9E1;
         }
         .svc-wrap { font-family:'Barlow',sans-serif; background:var(--iron); color:var(--white); }
 
-        /* Breadcrumb */
-        .svc-crumbs { max-width:1100px; margin:0 auto; padding:120px 48px 0; font-size:12px;
-          letter-spacing:1px; text-transform:uppercase; color:var(--smoke); }
-        .svc-crumbs a { color:var(--ash); text-decoration:none; }
-        .svc-crumbs a:hover { color:var(--forge); }
 
         /* Hero */
         .svc-hero { position:relative; padding:40px 48px 70px; max-width:1100px; margin:0 auto; }
@@ -111,7 +82,7 @@ export default function ServicePage({ service }: { service: Service }) {
         .svc-faq-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,58px);
           color:var(--white); margin:0 0 40px; }
         .svc-faq-item { border-top:1px solid var(--slag); padding:26px 0; }
-        .svc-faq-q { font-size:18px; font-weight:600; color:var(--white); margin:0 0 10px; }
+        .svc-faq-q { font-family:'Barlow',sans-serif; font-size:18px; font-weight:600; color:var(--white); margin:0 0 10px; }
         .svc-faq-a { font-size:15px; line-height:1.75; color:var(--ash); font-weight:300; margin:0; }
 
         /* Related */
@@ -124,6 +95,7 @@ export default function ServicePage({ service }: { service: Service }) {
         .svc-related-card:hover { background:#202020; }
         .svc-related-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:.5px;
           color:var(--white); margin:0 0 8px; }
+        .svc-related-desc { font-size:13px; line-height:1.6; color:var(--smoke); font-weight:300; margin:0 0 14px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
         .svc-related-link { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--forge); }
 
         /* CTA */
@@ -137,7 +109,7 @@ export default function ServicePage({ service }: { service: Service }) {
         .svc-cta-phone:hover { color:var(--forge); }
 
         @media (max-width:900px) {
-          .svc-crumbs, .svc-hero, .svc-body, .svc-related { padding-left:24px; padding-right:24px; }
+          .svc-hero, .svc-body, .svc-related { padding-left:24px; padding-right:24px; }
           .svc-body { grid-template-columns:1fr; gap:40px; }
           .svc-side { position:static; }
           .svc-faq, .svc-cta { padding-left:24px; padding-right:24px; }
@@ -147,10 +119,7 @@ export default function ServicePage({ service }: { service: Service }) {
 
       <div className="svc-wrap">
         {/* Breadcrumb */}
-        <nav className="svc-crumbs" aria-label="Breadcrumb">
-          <Link href="/">Home</Link> &nbsp;/&nbsp; <Link href="/services">Services</Link> &nbsp;/&nbsp;{' '}
-          <span style={{ color: 'var(--forge)' }}>{service.serviceName}</span>
-        </nav>
+        <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }, { name: service.serviceName, path }]} />
 
         {/* Hero */}
         <header className="svc-hero">
@@ -165,7 +134,7 @@ export default function ServicePage({ service }: { service: Service }) {
 
         {/* Image */}
         <div className="svc-imgband">
-          <Image src={service.image} alt={`${service.serviceName} by HotFab Welding in Warren, MI`} fill sizes="100vw" />
+          <Image src={service.image} alt={`${service.serviceName} by HotFab Welding in Warren, MI`} fill sizes="100vw" priority />
         </div>
 
         {/* Body + feature sidebar */}
@@ -180,6 +149,27 @@ export default function ServicePage({ service }: { service: Service }) {
                 {sec.body.map((p, j) => (<p key={j}>{p}</p>))}
               </section>
             ))}
+
+            <section className="svc-section">
+              <h2>Where we provide {service.serviceName.toLowerCase()}</h2>
+              <p>
+                {service.serviceName} is available from our shop at {SITE.address.full} and on-site across {SITE.serviceArea.region},
+                including {SITE.serviceArea.counties.join(', ')}. Dedicated pages for the cities we work in most:
+              </p>
+              <ServiceAreaLinks />
+            </section>
+
+            <section className="svc-section">
+              <h2>How to request a quote</h2>
+              <p>
+                Call <a href={SITE.phone.href} style={{ color: 'var(--forge)', textDecoration: 'none' }}>{SITE.phone.display}</a> or
+                send project details through the <Link href="/contact" style={{ color: 'var(--forge)', textDecoration: 'none' }}>contact form</Link>.
+                Include rough dimensions, the material you prefer (steel, stainless, or aluminum), and a photo of the space if you have one.
+                We reply within one business day with a free, no-obligation written estimate. Not sure which service fits? See the
+                {' '}<Link href="/faq" style={{ color: 'var(--forge)', textDecoration: 'none' }}>welding &amp; fabrication FAQ</Link> or
+                browse recent work in the <Link href="/gallery" style={{ color: 'var(--forge)', textDecoration: 'none' }}>project gallery</Link>.
+              </p>
+            </section>
           </div>
 
           <aside className="svc-side">
@@ -203,7 +193,7 @@ export default function ServicePage({ service }: { service: Service }) {
             <h2 className="svc-faq-title">Common Questions</h2>
             {service.faqs.map((f, i) => (
               <div className="svc-faq-item" key={i}>
-                <p className="svc-faq-q">{f.question}</p>
+                <h3 className="svc-faq-q">{f.question}</h3>
                 <p className="svc-faq-a">{f.answer}</p>
               </div>
             ))}
@@ -218,7 +208,8 @@ export default function ServicePage({ service }: { service: Service }) {
               {related.map((r) => (
                 <Link href={`/services/${r.slug}`} className="svc-related-card" key={r.slug}>
                   <p className="svc-related-name">{r.serviceName}</p>
-                  <span className="svc-related-link">View Service →</span>
+                  <p className="svc-related-desc">{r.heroSub}</p>
+                  <span className="svc-related-link">View {r.serviceName} →</span>
                 </Link>
               ))}
             </div>

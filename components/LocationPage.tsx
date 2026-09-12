@@ -1,51 +1,46 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import FaqSchema from '@/components/FaqSchema';
+import JsonLd from '@/components/seo/JsonLd';
+import Breadcrumbs from '@/components/seo/Breadcrumbs';
+import ServiceAreaLinks from '@/components/ServiceAreaLinks';
+import { faqSchema, webPageSchema, BUSINESS_ID } from '@/lib/schema';
+import { SITE, absoluteUrl } from '@/lib/site';
 import { Location } from '@/data/locations';
 import { services } from '@/data/services';
 
-const SITE = 'https://www.hotfabwelding.com';
-
 export default function LocationPage({ location }: { location: Location }) {
-  // Service schema scoped to this city — signals "we serve <city>"
-  const serviceSchema = {
+  const path = `/welding/${location.slug}`;
+
+  // Service scoped to this city — "HotFab Welding serves <city>", provided by the business entity.
+  const cityServiceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    'name': `Welding & Metal Fabrication in ${location.city}, MI`,
-    'serviceType': 'Welding and Metal Fabrication',
-    'description': location.metaDescription,
-    'url': `${SITE}/welding/${location.slug}`,
-    'provider': { '@id': `${SITE}/#business` },
-    'areaServed': { '@type': 'City', 'name': location.city, 'containedInPlace': { '@type': 'AdministrativeArea', 'name': location.county } },
-  };
-
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    'itemListElement': [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
-      { '@type': 'ListItem', position: 2, name: 'Service Areas', item: `${SITE}/welding` },
-      { '@type': 'ListItem', position: 3, name: location.city, item: `${SITE}/welding/${location.slug}` },
-    ],
+    '@id': `${absoluteUrl(path)}#service`,
+    name: `Welding & Metal Fabrication in ${location.city}, MI`,
+    serviceType: 'Welding and Metal Fabrication',
+    description: location.metaDescription,
+    url: absoluteUrl(path),
+    image: location.image,
+    provider: { '@id': BUSINESS_ID },
+    areaServed: { '@type': 'City', name: location.city, containedInPlace: { '@type': 'AdministrativeArea', name: location.county } },
   };
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <FaqSchema faqs={location.faqs} />
+      <JsonLd
+        data={[
+          webPageSchema({ path, name: location.title, description: location.metaDescription, image: location.image }),
+          cityServiceSchema,
+          faqSchema(location.faqs),
+        ]}
+      />
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap');
         :root {
           --forge:#C8410A; --forge-light:#E85D1A; --iron:#0D0D0D; --steel:#1A1A1A;
           --slag:#2C2C2C; --smoke:#6B6B6B; --ash:#A0A0A0; --white:#F5F3EF; --cream:#EDE9E1;
         }
         .loc-wrap { font-family:'Barlow',sans-serif; background:var(--iron); color:var(--white); }
-        .loc-crumbs { max-width:1100px; margin:0 auto; padding:120px 48px 0; font-size:12px;
-          letter-spacing:1px; text-transform:uppercase; color:var(--smoke); }
-        .loc-crumbs a { color:var(--ash); text-decoration:none; }
-        .loc-crumbs a:hover { color:var(--forge); }
 
         .loc-hero { max-width:1100px; margin:0 auto; padding:40px 48px 60px; }
         .loc-tag { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--forge);
@@ -93,7 +88,7 @@ export default function LocationPage({ location }: { location: Location }) {
         .loc-faq-eyebrow { font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--forge); font-weight:600; margin-bottom:10px; }
         .loc-faq-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(34px,5vw,54px); color:var(--white); margin:0 0 34px; }
         .loc-faq-item { border-top:1px solid var(--slag); padding:24px 0; }
-        .loc-faq-q { font-size:18px; font-weight:600; color:var(--white); margin:0 0 10px; }
+        .loc-faq-q { font-family:'Barlow',sans-serif; font-size:18px; font-weight:600; color:var(--white); margin:0 0 10px; }
         .loc-faq-a { font-size:15px; line-height:1.75; color:var(--ash); font-weight:300; margin:0; }
 
         .loc-cta { background:var(--iron); padding:100px 48px; text-align:center; border-top:1px solid var(--slag); }
@@ -105,17 +100,17 @@ export default function LocationPage({ location }: { location: Location }) {
           font-size:42px; letter-spacing:2px; color:var(--white); text-decoration:none; }
         .loc-cta-phone:hover { color:var(--forge); }
 
+        .loc-nearby { max-width:1100px; margin:0 auto; padding:0 48px 70px; }
+        .loc-nearby .loc-section-h { margin-top:0; }
         @media (max-width:900px) {
-          .loc-crumbs, .loc-hero, .loc-body, .loc-services, .loc-faq, .loc-cta { padding-left:24px; padding-right:24px; }
+          .loc-nearby { padding-left:24px; padding-right:24px; }
+          .loc-hero, .loc-body, .loc-services, .loc-faq, .loc-cta { padding-left:24px; padding-right:24px; }
           .loc-services-grid { grid-template-columns:1fr; }
         }
       `}</style>
 
       <div className="loc-wrap">
-        <nav className="loc-crumbs" aria-label="Breadcrumb">
-          <Link href="/">Home</Link> &nbsp;/&nbsp; <Link href="/welding">Service Areas</Link> &nbsp;/&nbsp;{' '}
-          <span style={{ color: 'var(--forge)' }}>{location.city}</span>
-        </nav>
+        <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Service Areas', path: '/welding' }, { name: `${location.city}, MI`, path }]} />
 
         <header className="loc-hero">
           <div className="loc-tag">{location.city}, MI · {location.county}</div>
@@ -128,7 +123,7 @@ export default function LocationPage({ location }: { location: Location }) {
         </header>
 
         <div className="loc-imgband">
-          <Image src={location.image} alt={`Custom metalwork by HotFab Welding serving ${location.city}, MI`} fill sizes="100vw" />
+          <Image src={location.image} alt={`Custom metalwork by HotFab Welding serving ${location.city}, MI`} fill sizes="100vw" priority />
         </div>
 
         <div className="loc-body">
@@ -146,7 +141,7 @@ export default function LocationPage({ location }: { location: Location }) {
               {services.map((s) => (
                 <Link key={s.slug} href={`/services/${s.slug}`} className="loc-service-card">
                   <span className="loc-service-name">{s.serviceName}</span>
-                  <span className="loc-service-link">Learn More →</span>
+                  <span className="loc-service-link">{s.serviceName} in {location.city} →</span>
                 </Link>
               ))}
             </div>
@@ -158,10 +153,18 @@ export default function LocationPage({ location }: { location: Location }) {
           <h2 className="loc-faq-title">{location.city} Welding Questions</h2>
           {location.faqs.map((f, i) => (
             <div className="loc-faq-item" key={i}>
-              <p className="loc-faq-q">{f.question}</p>
+              <h3 className="loc-faq-q">{f.question}</h3>
               <p className="loc-faq-a">{f.answer}</p>
             </div>
           ))}
+        </section>
+
+        <section className="loc-nearby">
+          <h2 className="loc-section-h">Other Metro Detroit areas we serve</h2>
+          <p className="loc-section-p">
+            All work is fabricated at our shop at {SITE.address.full} and installed on-site. Nearby cities with their own pages:
+          </p>
+          <ServiceAreaLinks current={location.slug} />
         </section>
 
         <section className="loc-cta">
