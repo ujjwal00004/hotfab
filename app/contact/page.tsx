@@ -37,8 +37,12 @@ export default function ContactPage() {
             {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}<br />
             Phone: <a href={SITE.phone.href} style={{ color: '#C8410A', textDecoration: 'none' }}>{SITE.phone.display}</a><br />
             Email: <a href={`mailto:${SITE.email}`} style={{ color: '#C8410A', textDecoration: 'none' }}>{SITE.email}</a><br />
-            Hours: {SITE.hours.map((h) => h.label).join(' · ')}
+            Hours: {SITE.hours.map((h) => h.label).join(' · ')}<br />
+            <a href={SITE.directionsUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#C8410A', textDecoration: 'none' }}>Get directions to the shop →</a>
           </address>
+          <p style={{ color: '#A0A0A0', fontSize: 15, lineHeight: 1.8, fontWeight: 300, maxWidth: '62ch' }}>
+            Photos and rough dimensions help us quote faster. For a repair, a picture of the broken part and a note on the metal (steel, stainless, aluminum) is usually enough for a phone estimate.
+          </p>
           <h3 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: 1, color: '#F5F3EF', margin: '28px 0 12px' }}>What can we quote for you?</h3>
           <ul className="hf-areas">
             {services.map((s) => (

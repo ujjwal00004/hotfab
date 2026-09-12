@@ -256,6 +256,119 @@ export const locations: Location[] = [
     ],
     image: `${IMG}/ornamental-balcony-railing-michigan.jpg`,
   },
+  // 7 ─ Eastpointe ────────────────────────────────────────────────────────
+  {
+    slug: 'eastpointe-mi',
+    city: 'Eastpointe',
+    county: 'Macomb County',
+    title: 'Welding & Metal Fabrication in Eastpointe, MI | HotFab Welding',
+    metaDescription:
+      'Custom railings, fences, gates, and mobile welding repair for Eastpointe, MI — minutes from our Warren shop. Porch and stair railings for older brick homes. Free quotes: (248) 259-9956.',
+    ogTitle: 'Welding & Metal Fabrication in Eastpointe, MI | HotFab Welding',
+    ogDescription:
+      'Porch railings, fences, gates, and fast mobile welding for Eastpointe homes and businesses. Family-owned, 25+ years.',
+    h1: 'Welding & Metal Fabrication in Eastpointe, MI',
+    heroSub:
+      'Porch and stair railings, fences, gates, and same-day mobile welding for Eastpointe — one of the closest cities to our Warren shop.',
+    intro: [
+      'Eastpointe sits directly southeast of Warren along 8 Mile and Gratiot, which makes it one of the shortest drives we make for measurements, installs, and mobile repair calls. HotFab Welding fabricates every piece at our shop at 13118 E 9 Mile Rd and installs it at your property.',
+      'Eastpointe\u2019s housing stock is largely post-war brick bungalows and colonials, and the work we are asked for most reflects that: replacement porch and step railings, backyard fencing, and gates that match the character of the home.',
+    ],
+    localHeading: 'What we build most in Eastpointe',
+    localBody: [
+      'Front-porch and stoop railings are the number-one request — often replacing a rusted or loose original with a powder-coated steel or aluminum railing built to current code height. We also fabricate ornamental and privacy fencing, pedestrian and driveway gates, and window guards and security panels for the commercial storefronts along Gratiot Avenue and 9 Mile.',
+      'Because Eastpointe borders Warren, it is well suited to our mobile welding service for truck, trailer, and equipment repairs at your driveway or business.',
+    ],
+    faqs: [
+      {
+        question: 'Do you replace old porch railings in Eastpointe?',
+        answer:
+          'Yes. Replacing rusted, loose, or non-code porch and step railings on Eastpointe\u2019s brick homes is one of our most common jobs. We measure on site, fabricate at our Warren shop, and install with proper anchoring into masonry or concrete.',
+      },
+      {
+        question: 'How far is Eastpointe from your shop?',
+        answer:
+          'Eastpointe borders Warren to the southeast, so it is a short drive from 13118 E 9 Mile Rd. That keeps travel time low for quotes, installs, and same-day mobile welding repairs.',
+      },
+    ],
+    image: `${IMG}/ornamental-balcony-railing-michigan.jpg`,
+  },
+
+  // 8 ─ Macomb Township ─────────────────────────────────────────────────
+  {
+    slug: 'macomb-township-mi',
+    city: 'Macomb Township',
+    county: 'Macomb County',
+    title: 'Welding & Metal Fabrication in Macomb Township, MI | HotFab',
+    metaDescription:
+      'Custom deck and balcony railings, aluminum pool fencing, driveway gates, and mobile welding for Macomb Township, MI homes and businesses. Family-owned Warren shop. Free quotes: (248) 259-9956.',
+    ogTitle: 'Welding & Metal Fabrication in Macomb Township, MI | HotFab Welding',
+    ogDescription:
+      'Deck railings, aluminum pool fencing, driveway gates, and mobile welding for Macomb Township. Family-owned, 25+ years.',
+    h1: 'Welding & Metal Fabrication in Macomb Township, MI',
+    heroSub:
+      'Deck and balcony railings, aluminum pool and yard fencing, driveway gates, and mobile on-site welding for Macomb Township\u2019s newer subdivisions.',
+    intro: [
+      'Macomb Township lies north of Clinton Township, roughly a 20-minute drive up from our Warren shop via M-53 or M-59. It is one of the fastest-growing communities in Macomb County, and most of what we build there goes on newer homes: decks, patios, pools, and driveways that need railings, fencing, and gates.',
+      'We fabricate at 13118 E 9 Mile Rd in Warren and deliver and install at your property, so Macomb Township projects get the same shop-built quality as work closer to home.',
+    ],
+    localHeading: 'What we build most in Macomb Township',
+    localBody: [
+      'Deck and balcony railings lead the list \u2014 aluminum is especially popular here because it never rusts and needs no upkeep around pools and patios. We also build aluminum and steel pool fencing, ornamental yard fencing, and driveway gates prepped for automation on the township\u2019s larger lots.',
+      'For contractors and homeowners with trucks, trailers, and equipment, our mobile welding unit handles repairs on site rather than requiring a trip to the shop.',
+    ],
+    faqs: [
+      {
+        question: 'Do you serve Macomb Township, or only Warren?',
+        answer:
+          'We serve all of Macomb Township. Fabrication happens at our Warren shop and we deliver and install at your home or business; our mobile unit also covers on-site repairs in the township.',
+      },
+      {
+        question: 'What railing material do you recommend for a pool deck in Macomb Township?',
+        answer:
+          'Aluminum. It will not rust from splash and chlorine, it is lighter than steel, and it needs essentially no maintenance. We build aluminum railings and pool fencing to Michigan code heights and baluster spacing.',
+      },
+    ],
+    image: `${IMG}/residential-balcony-railing-steel-michigan.jpg`,
+  },
+
+  // 9 ─ Livonia ───────────────────────────────────────────────────────────
+  {
+    slug: 'livonia-mi',
+    city: 'Livonia',
+    county: 'Wayne County',
+    title: 'Welding & Metal Fabrication in Livonia, MI | HotFab Welding',
+    metaDescription:
+      'Custom railings, gates, fences, structural steel, and mobile welding for Livonia, MI homes and industrial businesses. Fabricated in Warren, installed on site. Free quotes: (248) 259-9956.',
+    ogTitle: 'Welding & Metal Fabrication in Livonia, MI | HotFab Welding',
+    ogDescription:
+      'Railings, gates, fences, structural steel, and on-site industrial welding for Livonia, Michigan. Family-owned, 25+ years.',
+    h1: 'Welding & Metal Fabrication in Livonia, MI',
+    heroSub:
+      'Residential railings, gates, and fences plus on-site industrial and equipment welding for Livonia\u2019s homes and its large base of manufacturing and distribution businesses.',
+    intro: [
+      'Livonia is on the west side of Metro Detroit in Wayne County, reached from our Warren shop by I-696 and I-96. It is a longer drive than our Macomb County neighbors, so we plan Livonia work efficiently \u2014 measuring and installing in a single trip where possible \u2014 and it is a good fit for shop-fabricated projects like railings, gates, fences, and structural steel that are built in Warren and installed on site.',
+      'Livonia also has one of the region\u2019s largest concentrations of industrial and distribution facilities, which is where our on-site welding and structural steel work comes in.',
+    ],
+    localHeading: 'What we build most in Livonia',
+    localBody: [
+      'For Livonia homeowners: interior and exterior stair railings, deck and balcony guards, ornamental fencing, and driveway gates in steel or aluminum, all built to Michigan code. For businesses in Livonia\u2019s industrial corridors: structural steel components, mezzanine and platform work, warehouse racking repairs, and on-site equipment and trailer welding scheduled around your production hours.',
+      'Emergency mobile welding is available in Livonia; because of the distance from Warren, we give an honest arrival window on the phone before dispatching.',
+    ],
+    faqs: [
+      {
+        question: 'Is Livonia within your service area?',
+        answer:
+          'Yes. Livonia is in Wayne County on the west side of Metro Detroit and is part of our regular service area for fabrication, installation, and mobile welding. Travel from Warren is longer than for Macomb County cities, so we schedule Livonia work to minimize trips.',
+      },
+      {
+        question: 'Do you do industrial welding for Livonia businesses?',
+        answer:
+          'Yes. We handle structural steel, mezzanines and platforms, racking reinforcement, and on-site equipment and trailer repairs for Livonia\u2019s manufacturing and distribution facilities, coordinating work around your downtime windows.',
+      },
+    ],
+    image: `${IMG}/wrought-iron-staircase-warren-mi.jpg`,
+  },
 ];
 
 export const locationSlugs = locations.map((l) => l.slug);

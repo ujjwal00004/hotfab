@@ -391,7 +391,7 @@ export const services: Service[] = [
           'Our mobile team welds steel, stainless steel, and aluminum on location, handling structural, equipment, and fabrication work in the field.',
       },
     ],
-    related: ['structural-steel', 'driveway-gates', 'custom-railings'],
+    related: ['truck-trailer-repair', 'emergency-welding-repair', 'structural-steel'],
     image: `${IMG}/ornamental-balcony-railing-michigan.jpg`,
   },
 
@@ -535,6 +535,232 @@ export const services: Service[] = [
     related: ['metal-fences', 'structural-steel', 'mobile-welding'],
     image: `${IMG}/residential-balcony-railing-steel-michigan.jpg`,
   },
+  // 8 ── Truck & trailer repair (split out of mobile welding: most common emergency call) ──
+  {
+    slug: 'truck-trailer-repair',
+    title: 'Truck & Trailer Welding Repair in Metro Detroit | Mobile Service',
+    metaDescription:
+      'Mobile truck and trailer welding repair across Metro Detroit. Cracked frames, broken hitches, failed ramps, toolboxes, and aluminum trailer components welded at your yard, job site, or breakdown location. (248) 259-9956.',
+    ogTitle: 'Truck & Trailer Welding Repair | HotFab Welding Metro Detroit',
+    ogDescription:
+      'Hitches, frames, ramps, cross-members, and aluminum trailer components repaired on site by a mobile welding team. Fleets, owner-operators, landscapers, and contractors.',
+    heroTag: 'TRUCK & TRAILER REPAIR · MOBILE',
+    h1: 'Truck & Trailer Welding Repair in Metro Detroit',
+    heroSub:
+      'A failed weld on a truck or trailer is lost income. Our mobile unit comes to your yard, job site, or breakdown location and makes the structural repair correctly — steel, stainless, or aluminum.',
+    serviceName: 'Truck & Trailer Welding Repair',
+    serviceType: 'Trailer Repair',
+    schemaDescription:
+      'Mobile welding repair for trucks and trailers throughout Metro Detroit: cracked frames and cross-members, broken hitches and coupler mounts, failed ramp hinges, damaged toolboxes, flatbed decking supports, and aluminum trailer components.',
+    intro: [
+      'For trucking companies, contractors, landscapers, and anyone who depends on a vehicle and trailer to earn a living, a failed weld is not an inconvenience — it is downtime. HotFab Welding provides truck and trailer welding repair throughout Metro Detroit with mobile units that come to your yard, job site, or breakdown location, so the equipment goes back to work without a tow to a shop.',
+      'Truck and trailer calls are the most common mobile jobs we run, which is why they have their own page. If the failure is urgent, see our emergency welding service; for anything else you need welded on location, see mobile on-site welding.',
+    ],
+    sections: [
+      {
+        heading: 'What we repair most',
+        body: [
+          'Cracked or broken trailer hitches and coupler mounts; failed trailer frame welds and cross-members; broken ramp hinges and ramp frames on equipment trailers and car haulers; cracked truck frame rails and cab mounts; damaged toolboxes and storage compartments; and split or cracked flatbed decking supports. These are structural welds that cannot safely be left unrepaired — they carry the load and, ultimately, the driver.',
+        ],
+      },
+      {
+        heading: 'How the repair is done in the field',
+        body: [
+          'We use Stick welding for most outdoor repair work because it is unaffected by wind and works on surfaces with surface rust, grease residue, or paint. For cleaner structural welds on newer equipment we use MIG. Every structural repair is made to meet or exceed the original weld specification, and we check the surrounding metal for stress cracks that are not obvious at a glance so the same spot does not fail again.',
+          'Our mobile units carry the consumables and equipment for steel, stainless steel, and aluminum. If your trailer has aluminum components — common on livestock trailers, enclosed cargo trailers, and refrigeration units — we can weld those on site as well.',
+        ],
+      },
+      {
+        heading: 'Who we serve',
+        body: [
+          'Commercial fleets, independent owner-operators, landscaping and construction crews, and individual truck owners throughout Warren, Sterling Heights, Clinton Township, Macomb, Troy, Roseville, Eastpointe, and the wider Detroit metro area.',
+        ],
+      },
+    ],
+    features: [
+      { title: 'Hitches & Couplers', desc: 'Cracked or broken hitch and coupler mounts rebuilt to spec.' },
+      { title: 'Frames & Cross-Members', desc: 'Trailer frame rails and cross-member welds repaired structurally.' },
+      { title: 'Ramps & Hinges', desc: 'Ramp frames and hinge points on equipment trailers and car haulers.' },
+      { title: 'Truck Frame Rails', desc: 'Cracked frame rails and cab mounts on trucks.' },
+      { title: 'Toolboxes & Decking', desc: 'Storage compartments and flatbed decking supports.' },
+      { title: 'Aluminum Trailers', desc: 'Aluminum components on livestock, cargo, and reefer trailers.' },
+    ],
+    faqs: [
+      {
+        question: 'Can you repair a trailer where it sits, or do I need to bring it in?',
+        answer:
+          'We repair trucks and trailers on site — at your yard, job site, or breakdown location — so you avoid the cost and time of a tow. If a repair genuinely needs the shop, we will say so up front.',
+      },
+      {
+        question: 'Do you weld aluminum trailers?',
+        answer:
+          'Yes. Our mobile units carry equipment and filler for aluminum as well as steel and stainless, so aluminum livestock, enclosed cargo, and refrigeration trailer components can be repaired in the field.',
+      },
+      {
+        question: 'How long does a typical trailer repair take?',
+        answer:
+          'A simple hitch repair is often one to two hours; a complex structural frame repair can take a full day. We give you a realistic estimate on the phone once we know what failed and what the metal is.',
+      },
+      {
+        question: 'Is a welded trailer frame repair as strong as the original?',
+        answer:
+          'All structural repairs are performed to meet or exceed the original weld specification, and we inspect surrounding metal for additional stress cracks before we finish so the repair addresses the cause, not just the visible break.',
+      },
+    ],
+    related: ['mobile-welding', 'emergency-welding-repair', 'structural-steel'],
+    image: `${IMG}/ornamental-balcony-railing-michigan.jpg`,
+  },
+
+  // 9 ── Emergency welding repair (same-day / urgent) ──────────────────────
+  {
+    slug: 'emergency-welding-repair',
+    title: 'Emergency Welding Repair in Metro Detroit | Same-Day Mobile Service',
+    metaDescription:
+      'Emergency and same-day welding repair across Metro Detroit. Truck and trailer failures, broken gates, racking, equipment, and structural steel repaired on site. Call (248) 259-9956 for a realistic arrival window.',
+    ogTitle: 'Emergency Welding Repair | HotFab Welding Metro Detroit',
+    ogDescription:
+      'Same-day mobile welding for failures that cannot wait — trucks and trailers, gates, equipment, racking, and structural components across Warren and Metro Detroit.',
+    heroTag: 'EMERGENCY & SAME-DAY · METRO DETROIT',
+    h1: 'Emergency Welding Repair in Metro Detroit',
+    heroSub:
+      'Metal failures do not wait for business hours. Call, tell us what failed and where you are, and we dispatch the nearest mobile unit with an honest arrival window — not a promise we cannot keep.',
+    serviceName: 'Emergency Welding Repair',
+    serviceType: 'Emergency Welding',
+    schemaDescription:
+      'Emergency and same-day mobile welding repair throughout Metro Detroit for truck and trailer failures, gates and fences, industrial equipment, warehouse racking, and structural steel components.',
+    intro: [
+      'A cracked truck frame on a Saturday morning, a broken gate latch before a Monday delivery, a failed support beam discovered mid-renovation — these need a qualified welder now, not next week. HotFab Welding provides emergency on-site welding repair throughout Metro Detroit, including Warren, Sterling Heights, Troy, Dearborn, and the surrounding communities.',
+      'This page explains exactly what happens when you call so there are no surprises. Most emergency calls are truck and trailer repairs; we also handle urgent repairs to gates, fences, industrial equipment, warehouse racking, and structural steel.',
+    ],
+    sections: [
+      {
+        heading: 'What happens when you call',
+        body: [
+          'We assess the situation over the phone — what failed, what the metal is, and where you are — so we arrive with the right process and filler. We give you an honest arrival estimate based on our current location and workload, then dispatch the nearest available mobile unit. Our trucks carry MIG and Stick welding equipment, grinding tools, and common filler metals for steel, stainless, and aluminum.',
+          'On arrival the welder inspects the failure, decides the repair approach, and explains the plan before starting. For structural repairs we check the surrounding area for stress cracks that are not visible to the untrained eye; a proper repair addresses the root cause, not just the obvious break.',
+        ],
+      },
+      {
+        heading: 'Emergency pricing, stated up front',
+        body: [
+          'Emergency rates are higher than standard rates to cover rapid dispatch and after-hours work, and we are transparent about that before we roll. For repairs that are not truly urgent, a standard scheduled appointment is more cost-effective — and we will tell you if that is the better option. See our welding cost guide for typical Michigan ranges.',
+        ],
+      },
+      {
+        heading: 'Common emergency calls',
+        body: [
+          'Truck and trailer hitches, frames, ramps, and toolboxes; gate and fence failures that leave a property unsecured; industrial equipment, conveyor, and forklift attachment cracks; warehouse racking and shelving damage; and structural steel supports found failed during construction or renovation.',
+        ],
+      },
+    ],
+    features: [
+      { title: 'Same-Day Dispatch', desc: 'Nearest available mobile unit sent with a realistic ETA.' },
+      { title: 'Trucks & Trailers', desc: 'The most common emergency call — repaired where it sits.' },
+      { title: 'Gates & Security', desc: 'Failed gates, latches, and security panels re-secured fast.' },
+      { title: 'Equipment & Racking', desc: 'Industrial equipment and warehouse racking repairs.' },
+      { title: 'Structural Steel', desc: 'Urgent repairs to beams, supports, and connections.' },
+      { title: 'Steel · Stainless · Aluminum', desc: 'Filler and equipment for all three carried on the truck.' },
+    ],
+    faqs: [
+      {
+        question: 'How fast can you get to me?',
+        answer:
+          'It depends on where you are and where our unit is at the time. When you call (248) 259-9956 we give you a realistic arrival window based on current location and workload rather than a blanket promise. Areas bordering Warren — Sterling Heights, Roseville, Eastpointe, Clinton Township — are typically fastest.',
+      },
+      {
+        question: 'Do emergency repairs cost more?',
+        answer:
+          'Yes. Emergency and after-hours rates are higher than standard rates to account for rapid dispatch. We state this up front, and if your repair can safely wait for a standard appointment we will recommend that instead.',
+      },
+      {
+        question: 'What should I have ready when I call?',
+        answer:
+          'What failed, what the metal is (steel, stainless, or aluminum), your location, and a photo if you can send one. That lets us bring the right equipment and filler and quote more accurately.',
+      },
+      {
+        question: 'Can you weld outdoors in bad weather?',
+        answer:
+          'Usually. We use Stick welding for most outdoor emergency work because it is unaffected by wind and works on rusty or painted surfaces. Heavy rain or unsafe conditions may require a short delay for the welder\u2019s safety and the quality of the weld.',
+      },
+    ],
+    related: ['truck-trailer-repair', 'mobile-welding', 'structural-steel'],
+    image: `${IMG}/ornamental-balcony-railing-michigan.jpg`,
+  },
+
+  // 10 ── Aluminum welding (material-specific page; TIG/MIG) ───────────────
+  {
+    slug: 'aluminum-welding',
+    title: 'Aluminum Welding & Fabrication in Warren, MI | TIG & MIG',
+    metaDescription:
+      'Aluminum welding and fabrication in Warren, MI. TIG and MIG welding for railings, deck and balcony guards, gates, fences, staircases, trailers, and custom parts. Rust-free metalwork for Michigan. (248) 259-9956.',
+    ogTitle: 'Aluminum Welding & Fabrication | HotFab Welding Warren, MI',
+    ogDescription:
+      'TIG and MIG aluminum welding for railings, gates, fences, staircases, trailer repairs, and custom fabrication across Metro Detroit.',
+    heroTag: 'ALUMINUM WELDING · WARREN, MI',
+    h1: 'Aluminum Welding & Fabrication in Warren, Michigan',
+    heroSub:
+      'Lightweight, rust-free, and low-maintenance — aluminum is the right call for many Michigan exterior projects. We TIG and MIG weld aluminum in the shop and in the field.',
+    serviceName: 'Aluminum Welding & Fabrication',
+    serviceType: 'Aluminum Welding',
+    schemaDescription:
+      'Aluminum welding and fabrication in Warren, MI and Metro Detroit: TIG and MIG welding for railings, deck and balcony guards, gates, fences, staircases, trailer and equipment repairs, and custom aluminum parts.',
+    intro: [
+      'Aluminum is the lightest structural metal we work with. It does not rust, is easy to cut and shape, and holds up around decks, pools, and anywhere Michigan road salt and moisture would attack bare steel. That makes it one of the most popular choices for residential exterior work across Metro Detroit — and one of the trickier metals to weld well.',
+      'HotFab Welding fabricates and welds aluminum at our Warren shop and on site with our mobile unit, using the process that suits the job: TIG where appearance and thin walls matter, MIG where speed and strength matter.',
+    ],
+    sections: [
+      {
+        heading: 'When aluminum is the right choice',
+        body: [
+          'Residential deck, balcony, and porch railings; backyard and pool fencing; driveway and pedestrian gates where weight matters for hinges and openers; light commercial railings; window guards and decorative panels; and trailer components on livestock, cargo, and refrigeration units. Aluminum is not as strong as steel under heavy loads, so for structural and high-security work we will usually recommend steel instead — and tell you why.',
+        ],
+      },
+      {
+        heading: 'TIG vs. MIG for aluminum',
+        body: [
+          'TIG welding gives an exceptionally clean, precise bead with minimal spatter, which is why we use it for visible joints and thin-walled aluminum where burn-through is a risk. MIG is faster and stronger for fabrication runs such as fence panels and gate frames. Many jobs use both: MIG for the frame, TIG on the joints you will see.',
+        ],
+      },
+      {
+        heading: 'Finish and maintenance',
+        body: [
+          'Aluminum can be left mill finish or powder coated for color. Either way it needs virtually no upkeep beyond an occasional wash, which is the main reason homeowners choose it for decks and pools. If you want to compare materials before deciding, see our guide to steel vs. aluminum vs. stainless.',
+        ],
+      },
+    ],
+    features: [
+      { title: 'Deck & Balcony Railings', desc: 'Rust-free guards built to Michigan code heights.' },
+      { title: 'Fences & Pool Enclosures', desc: 'Low-maintenance aluminum fencing and gates.' },
+      { title: 'Driveway Gates', desc: 'Lightweight gates that are easy on hinges and openers.' },
+      { title: 'Trailer & Equipment Repair', desc: 'Aluminum trailer components welded on site.' },
+      { title: 'Custom Parts & Panels', desc: 'Window guards, decorative panels, brackets, and one-offs.' },
+      { title: 'TIG & MIG', desc: 'The right process for the joint, in the shop or in the field.' },
+    ],
+    faqs: [
+      {
+        question: 'Is aluminum or steel better for a deck railing in Michigan?',
+        answer:
+          'For most residential decks and balconies aluminum is the better choice: it will not rust, is lighter, and needs almost no maintenance. Steel is stronger and better for structural or high-security applications, and it must be powder coated to survive Michigan winters.',
+      },
+      {
+        question: 'Can you weld aluminum on site?',
+        answer:
+          'Yes. Our mobile unit carries aluminum filler and equipment, so trailer components, railings, and gate repairs can be welded at your location.',
+      },
+      {
+        question: 'Do you TIG weld aluminum?',
+        answer:
+          'Yes. We use TIG for visible joints, thin-walled aluminum, and anywhere appearance matters, and MIG for faster fabrication of frames and panels.',
+      },
+      {
+        question: 'Does aluminum need to be painted?',
+        answer:
+          'No. Aluminum does not rust, so it can be left with a mill finish. Powder coating is optional if you want a specific color or a more finished look.',
+      },
+    ],
+    related: ['custom-railings', 'metal-fences', 'truck-trailer-repair'],
+    image: `${IMG}/residential-balcony-railing-steel-michigan.jpg`,
+  },
 ];
 
 export const serviceSlugs = services.map((s) => s.slug);
@@ -551,7 +777,10 @@ const BLOG_SERVICE_RULES: { match: string[]; slug: string }[] = [
   { match: ['staircase', 'spiral'], slug: 'custom-staircases' },
   { match: ['mezzanine', 'structural'], slug: 'structural-steel' },
   { match: ['railing', 'handrail', 'balcony'], slug: 'custom-railings' },
-  { match: ['on-site', 'emergency', 'truck', 'trailer', 'industrial-equipment'], slug: 'mobile-welding' },
+  { match: ['truck', 'trailer'], slug: 'truck-trailer-repair' },
+  { match: ['emergency'], slug: 'emergency-welding-repair' },
+  { match: ['aluminum'], slug: 'aluminum-welding' },
+  { match: ['on-site', 'industrial-equipment'], slug: 'mobile-welding' },
 ];
 
 export function serviceForBlog(slug: string): Service | undefined {

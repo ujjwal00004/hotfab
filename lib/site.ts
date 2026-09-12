@@ -44,8 +44,14 @@ export const SITE = {
       'Macomb', 'Clinton Township', 'Roseville', 'Eastpointe',
     ],
   },
-  /** Public social / directory profiles. Add real URLs here (Google Business Profile, Facebook, etc.). */
+  /** Google Maps directions to the shop (safe to use without a Business Profile). */
+  directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=13118+E+9+Mile+Rd,+Warren,+MI+48089',
+  /** "Leave a review" link from Google Business Profile (https://g.page/r/.../review). Empty = not rendered. */
+  reviewUrl: '',
+  /** Public social / directory profiles. Add real URLs here (Google Business Profile, Facebook, Instagram, Yelp…). */
   sameAs: [] as string[],
+  /** Slug of the blog post with published price ranges — linked from every service page. */
+  pricingGuideSlug: 'welding-cost-guide-michigan-2026',
   ogImage: {
     url: `${SITE_URL}/og-image.jpg`,
     width: 1200,

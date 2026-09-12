@@ -160,11 +160,22 @@ export default function ServicePage({ service }: { service: Service }) {
             </section>
 
             <section className="svc-section">
+              <h2>What affects the price</h2>
+              <p>
+                Every quote is written after we measure, but the drivers are the same on every job: total length or size,
+                material (steel is most economical, aluminum and stainless cost more), design complexity such as ornamental
+                work or glass infill, finish (powder coating adds cost and years of life), and whether the work is done in our
+                shop or on site. For typical Michigan ranges see our{' '}
+                <Link href={`/blogs/${SITE.pricingGuideSlug}`} style={{ color: 'var(--forge)', textDecoration: 'none' }}>welding &amp; fabrication cost guide</Link>.
+              </p>
+            </section>
+
+            <section className="svc-section">
               <h2>How to request a quote</h2>
               <p>
                 Call <a href={SITE.phone.href} style={{ color: 'var(--forge)', textDecoration: 'none' }}>{SITE.phone.display}</a> or
                 send project details through the <Link href="/contact" style={{ color: 'var(--forge)', textDecoration: 'none' }}>contact form</Link>.
-                Include rough dimensions, the material you prefer (steel, stainless, or aluminum), and a photo of the space if you have one.
+                Photos and rough dimensions help us quote faster — include the material you prefer (steel, stainless, or aluminum) and a picture of the space or the broken part.
                 We reply within one business day with a free, no-obligation written estimate. Not sure which service fits? See the
                 {' '}<Link href="/faq" style={{ color: 'var(--forge)', textDecoration: 'none' }}>welding &amp; fabrication FAQ</Link> or
                 browse recent work in the <Link href="/gallery" style={{ color: 'var(--forge)', textDecoration: 'none' }}>project gallery</Link>.

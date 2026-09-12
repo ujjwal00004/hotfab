@@ -39,7 +39,7 @@ export function localBusinessSchema(): JsonLdObject {
       addressCountry: SITE.address.country,
     },
     geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.latitude, longitude: SITE.geo.longitude },
-    hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SITE.name}, ${SITE.address.full}`)}`,
+    hasMap: SITE.directionsUrl,
     openingHoursSpecification: SITE.hours.map((h) => ({
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: h.days,

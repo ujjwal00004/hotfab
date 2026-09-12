@@ -191,6 +191,9 @@ export default function Footer() {
         @media (max-width: 540px) {
           .hf-footer-body { grid-template-columns: 1fr; }
         }
+        .hf-footer-social.hf-footer-social { list-style:none; margin:16px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:8px 16px; }
+        .hf-footer-social a { font-size:12px; letter-spacing:1px; text-transform:uppercase; color:#6B6B6B; text-decoration:none; }
+        .hf-footer-social a:hover { color:#C8410A; }
         .hf-footer-areas { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:0 48px 40px; }
         .hf-footer-areas-list { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:8px 22px; }
         .hf-footer-areas-list a { font-size:13px; color:#6B6B6B; text-decoration:none; transition:color .2s; }
@@ -255,7 +258,8 @@ export default function Footer() {
             <div className="hf-contact-block">
               <div className="hf-contact-label">Location</div>
               <address className="hf-contact-location" style={{ fontStyle: 'normal' }}>
-                {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
+                {SITE.address.street}<br />{SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}<br />
+                <a href={SITE.directionsUrl} target="_blank" rel="noopener noreferrer" className="hf-contact-email">Get directions →</a>
               </address>
             </div>
 
@@ -265,6 +269,16 @@ export default function Footer() {
             </div>
 
             <Link href="/contact" className="hf-footer-cta">Request a Free Quote →</Link>
+            {SITE.reviewUrl && (
+              <a href={SITE.reviewUrl} target="_blank" rel="noopener noreferrer" className="hf-footer-cta" style={{ marginTop: 12 }}>Leave us a Google review →</a>
+            )}
+            {SITE.sameAs.length > 0 && (
+              <ul className="hf-footer-social">
+                {SITE.sameAs.map((u) => (
+                  <li key={u}><a href={u} target="_blank" rel="noopener noreferrer">{new URL(u).hostname.replace(/^www\./, '')}</a></li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 
